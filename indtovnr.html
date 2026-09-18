@@ -92,11 +92,14 @@ details.category-card[open] summary .arrow{transform:rotate(180deg)}
 .quick-bills::-webkit-scrollbar{display:none}
 .bill-btn{flex:1;background:#f0f2f5;border:0;padding:8px 0;border-radius:10px;font-size:14px;font-weight:750;color:#15171a;cursor:pointer;white-space:nowrap;text-align:center}
 .bill-btn:active{background:#e1e5ea}
-.weather-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #bae6fd}
-.weather-row:last-child{border-bottom:0;padding-bottom:0}
-.w-city{font-weight:750;color:#0c4a6e;font-size:15px;flex:1}
-.w-desc{font-size:13px;color:#0369a1;text-align:right;flex:1;font-weight:600}
-.w-temp{font-weight:850;font-size:22px;color:#075985;width:60px;text-align:right;font-variant-numeric:tabular-nums}
+.w-city-header{font-weight:850;color:#075985;font-size:16px;margin-bottom:12px;border-bottom:1px solid #bae6fd;padding-bottom:8px}
+.w-days{display:flex;justify-content:space-between;gap:10px}
+.w-day{flex:1;background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 4px 12px #0000000a}
+.w-day-name{font-size:11px;color:#64748b;font-weight:800;text-transform:uppercase;letter-spacing:0.5px}
+.w-day-icon{font-size:28px;margin:6px 0}
+.w-day-desc{font-size:11px;color:#64748b;font-weight:600;margin-bottom:6px;line-height:1.1;height:24px;display:flex;align-items:center;justify-content:center}
+.w-day-temp{font-size:15px;font-weight:850;color:#0369a1}
+.w-day-min{font-size:12px;color:#94a3b8;font-weight:600;margin-left:4px}
 </style>
 </head>
 <body>
@@ -206,17 +209,12 @@ details.category-card[open] summary .arrow{transform:rotate(180deg)}
   <div class="clock-face sg-face"><span class="t9">9</span><span class="t3">3</span><div class="hand"></div><div class="hand2"></div><div class="second-hand"></div><div class="center"></div></div>
 </section>
   
-<section class="card weather-card" style="background:linear-gradient(135deg, #f0fdfa, #e0f2fe);border-color:#bae6fd">
-  <div class="label" style="font-size:18px;color:#0369a1;margin-bottom:8px">⛅ Current Weather <span id="wStatus" style="font-size:12px;font-weight:500;color:#0284c7;float:right;margin-top:4px"></span></div>
-  <div class="weather-row" id="wHanoi">
-    <div class="w-city">Hanoi</div><div class="w-desc">Loading...</div><div class="w-temp">--°</div>
+<section class="card weather-card" style="background:linear-gradient(135deg, #f0fdfa, #e0f2fe);border-color:#bae6fd;padding:16px 20px">
+  <div class="label" style="font-size:18px;color:#0369a1;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
+    <span>⛅ 3-Day Forecast</span>
+    <span id="wStatus" style="font-size:12px;font-weight:700;color:#0284c7;background:#fff;padding:4px 10px;border-radius:12px;box-shadow:0 1px 3px #0002"></span>
   </div>
-  <div class="weather-row" id="wSapa">
-    <div class="w-city">Sapa</div><div class="w-desc">Loading...</div><div class="w-temp">--°</div>
-  </div>
-  <div class="weather-row" id="wHalong">
-    <div class="w-city">Halong Bay</div><div class="w-desc">Loading...</div><div class="w-temp">--°</div>
-  </div>
+  <div id="wContainer" style="display:flex;flex-direction:column;gap:16px">Loading forecast...</div>
 </section>
 
 <section class="card info" style="display:flex;align-items:center;gap:12px;padding:16px;background:#f8fafc;border-color:#e2e8f0;border-radius:16px;box-shadow:none">
@@ -338,6 +336,16 @@ details.category-card[open] summary .arrow{transform:rotate(180deg)}
 </ul>
 </section>
 <section class="card">
+<div class="label" style="font-size:18px;color:#111;margin-bottom:14px">🍜 Must-Try Food (by priority)</div>
+<ul style="padding-left:20px;font-size:14px;color:#444;line-height:1.6;margin:0">
+<li style="margin-bottom:10px"><strong>Hanoi:</strong> Phở Bắc (Northern Noodle Soup), Bún Chả (Grilled Pork & Noodles), Cà Phê Trứng (Egg Coffee), Chả Cá Lã Vọng (Turmeric Fish with Dill), Bánh Cuốn (Steamed Rice Rolls).</li>
+<li style="margin-bottom:10px"><strong>Sapa:</strong> Lẩu Cá Hồi (Salmon Hotpot), Lợn Cắp Nách (Roasted Free-Range Pork), Cơm Lam (Bamboo Sticky Rice), Gà Đen (Black Chicken).</li>
+<li style="margin-bottom:10px"><strong>Ninh Binh:</strong> Dê Nướng (Grilled Mountain Goat), Cơm Cháy (Crispy Rice Crust), Miến Lươn (Eel Glass Noodles), Ốc Núi (Mountain Snails).</li>
+<li><strong>Halong Bay:</strong> Chả Mực (Hand-Pounded Squid Cakes), Bún Bề Bề (Mantis Shrimp Noodles), Xôi Chả Mực (Sticky Rice with Squid), Hàu Nướng (Grilled Oysters).</li>
+</ul>
+</section>
+
+<section class="card">
 <div class="label" style="font-size:18px;color:#111;margin-bottom:14px">🚫 Common Scams to Avoid</div>
 <ul style="padding-left:20px;font-size:14px;color:#444;line-height:1.6;margin:0">
 <li style="margin-bottom:10px"><strong>The Shoe-Shine Scam:</strong> Someone may point at your shoes or grab them to start cleaning/gluing them without permission, then demand a huge fee. <em>Action: Firmly say "Không" (No) and keep walking. Don't let them touch your shoes.</em></li>
@@ -441,37 +449,54 @@ $("refresh").onclick=fetchLive;
 window.ononline=()=>{fetchLive();fetchWeather()};window.onoffline=()=>{status(false);renderRate()};
 
 async function fetchWeather() {
-  const wm={0:"☀️ Clear",1:"🌤️ Mostly Clear",2:"⛅ Partly Cloudy",3:"☁️ Overcast",45:"🌫️ Fog",48:"🌫️ Fog",51:"🌧️ Light Drizzle",53:"🌧️ Drizzle",55:"🌧️ Heavy Drizzle",61:"🌧️ Light Rain",63:"🌧️ Rain",65:"🌧️ Heavy Rain",71:"❄️ Light Snow",73:"❄️ Snow",75:"❄️ Heavy Snow",80:"🌧️ Rain Showers",81:"🌧️ Showers",82:"🌧️ Heavy Showers",95:"⛈️ Thunderstorm",96:"⛈️ Thunderstorm",99:"⛈️ Thunderstorm"};
-  const cities=[{id:"wHanoi",lat:21.0285,lon:105.8542},{id:"wSapa",lat:22.3352,lon:103.8436},{id:"wHalong",lat:20.95,lon:107.0833}];
-  let hasCache = false;
-  cities.forEach(c => {
-    const cached = localStorage.getItem("weather_" + c.id);
-    if(cached) {
-      try {
-        hasCache = true;
-        const cw = JSON.parse(cached);
-        document.querySelector(`#${c.id} .w-temp`).textContent = Math.round(cw.temperature) + "°";
-        document.querySelector(`#${c.id} .w-desc`).textContent = wm[cw.weathercode] || "☁️ Cloudy";
-      } catch(e){}
-    }
-  });
+  const wm={0:["☀️","Clear"],1:["🌤️","Mostly clear"],2:["⛅","Partly cloudy"],3:["☁️","Overcast"],45:["🌫️","Fog"],48:["🌫️","Fog"],51:["🌧️","Drizzle"],53:["🌧️","Drizzle"],55:["🌧️","Heavy drizzle"],61:["🌧️","Light rain"],63:["🌧️","Rain"],65:["🌧️","Heavy rain"],71:["❄️","Light snow"],73:["❄️","Snow"],75:["❄️","Heavy snow"],80:["🌧️","Showers"],81:["🌧️","Heavy showers"],82:["⛈️","Violent showers"],95:["⛈️","Thunderstorm"],96:["⛈️","Thunderstorm"],99:["⛈️","Thunderstorm"]};
+  const cities=[{name:"Hanoi",lat:21.0285,lon:105.8542},{name:"Sapa",lat:22.3352,lon:103.8436},{name:"Ninh Binh",lat:20.2539,lon:105.9750},{name:"Halong Bay",lat:20.95,lon:107.0833}];
+  
+  function render(data) {
+    let html = "";
+    const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    cities.forEach((c, i) => {
+      const d = data[i];
+      if(!d) return;
+      html += `<div><div class="w-city-header">${c.name}</div><div class="w-days">`;
+      for(let j=0; j<3; j++) {
+        const date = new Date(d.time[j] + "T00:00:00");
+        let dName = j===0 ? "Today" : j===1 ? "Tmrw" : days[date.getDay()];
+        const weather = wm[d.weathercode[j]] || ["☁️", "Cloudy"];
+        html += `<div class="w-day">
+          <div class="w-day-name">${dName}</div>
+          <div class="w-day-icon">${weather[0]}</div>
+          <div class="w-day-desc">${weather[1]}</div>
+          <div><span class="w-day-temp">${Math.round(d.temperature_2m_max[j])}°</span><span class="w-day-min">${Math.round(d.temperature_2m_min[j])}°</span></div>
+        </div>`;
+      }
+      html += `</div></div>`;
+    });
+    $("wContainer").innerHTML = html;
+  }
+
+  const cached = localStorage.getItem("weather_daily");
+  if(cached) {
+    try { render(JSON.parse(cached)); } catch(e){}
+  }
+  
   if(!navigator.onLine) {
-    $("wStatus").textContent = hasCache ? "Offline (Saved)" : "Offline";
+    $("wStatus").textContent = cached ? "Offline (Saved)" : "Offline";
     return;
   }
   $("wStatus").textContent = "Updating...";
-  await Promise.all(cities.map(async c => {
-    try {
-      const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current_weather=true`);
-      if(!r.ok) return;
-      const d = await r.json();
-      const cw = d.current_weather;
-      localStorage.setItem("weather_" + c.id, JSON.stringify(cw));
-      document.querySelector(`#${c.id} .w-temp`).textContent = Math.round(cw.temperature) + "°";
-      document.querySelector(`#${c.id} .w-desc`).textContent = wm[cw.weathercode] || "☁️ Cloudy";
-    } catch(e) {}
-  }));
-  $("wStatus").textContent = "Live 🟢";
+  
+  try {
+    const res = await Promise.all(cities.map(c => 
+      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FHo_Chi_Minh`).then(r=>r.json())
+    ));
+    const finalData = res.map(r => r.daily);
+    localStorage.setItem("weather_daily", JSON.stringify(finalData));
+    render(finalData);
+    $("wStatus").textContent = "Live 🟢";
+  } catch(e) {
+    $("wStatus").textContent = "Error";
+  }
 }
 
 renderRate();fetchLive();fetchWeather();updateClocks();setInterval(updateClocks,1000);
