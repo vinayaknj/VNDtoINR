@@ -97,7 +97,7 @@ details.category-card[open] summary .arrow{transform:rotate(180deg)}
 .w-day{flex:1;background:#fff;border-radius:14px;padding:12px 4px;text-align:center;box-shadow:0 4px 12px #0000000a}
 .w-day-name{font-size:11px;color:#64748b;font-weight:800;text-transform:uppercase;letter-spacing:0.5px}
 .w-day-icon{font-size:28px;margin:6px 0}
-.w-day-desc{font-size:11px;color:#64748b;font-weight:600;margin-bottom:6px;line-height:1.2;min-height:30px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.w-day-desc{font-size:11px;color:#64748b;font-weight:600;margin-bottom:6px;line-height:1.1;height:24px;display:flex;align-items:center;justify-content:center;text-align:center}
 .w-day-temp{font-size:15px;font-weight:850;color:#0369a1}
 .w-day-min{font-size:12px;color:#94a3b8;font-weight:600;margin-left:4px}
 </style>
@@ -449,7 +449,7 @@ $("refresh").onclick=fetchLive;
 window.ononline=()=>{fetchLive();fetchWeather()};window.onoffline=()=>{status(false);renderRate()};
 
 async function fetchWeather() {
-  const wm={0:["☀️","Nắng<br><span style='font-size:9px;font-weight:500'>(Clear)</span>"],1:["🌤️","Nắng nhẹ<br><span style='font-size:9px;font-weight:500'>(Mostly clear)</span>"],2:["⛅","Có mây<br><span style='font-size:9px;font-weight:500'>(Partly cloudy)</span>"],3:["☁️","Nhiều mây<br><span style='font-size:9px;font-weight:500'>(Overcast)</span>"],45:["🌫️","Sương mù<br><span style='font-size:9px;font-weight:500'>(Fog)</span>"],48:["🌫️","Sương mù<br><span style='font-size:9px;font-weight:500'>(Fog)</span>"],51:["🌧️","Mưa bụi<br><span style='font-size:9px;font-weight:500'>(Drizzle)</span>"],53:["🌧️","Mưa bụi<br><span style='font-size:9px;font-weight:500'>(Drizzle)</span>"],55:["🌧️","Mưa bụi<br><span style='font-size:9px;font-weight:500'>(Heavy drizzle)</span>"],61:["🌧️","Mưa nhỏ<br><span style='font-size:9px;font-weight:500'>(Light rain)</span>"],63:["🌧️","Mưa<br><span style='font-size:9px;font-weight:500'>(Rain)</span>"],65:["🌧️","Mưa to<br><span style='font-size:9px;font-weight:500'>(Heavy rain)</span>"],71:["❄️","Tuyết<br><span style='font-size:9px;font-weight:500'>(Light snow)</span>"],73:["❄️","Tuyết<br><span style='font-size:9px;font-weight:500'>(Snow)</span>"],75:["❄️","Tuyết<br><span style='font-size:9px;font-weight:500'>(Heavy snow)</span>"],80:["🌧️","Mưa rào<br><span style='font-size:9px;font-weight:500'>(Showers)</span>"],81:["🌧️","Mưa rào<br><span style='font-size:9px;font-weight:500'>(Heavy showers)</span>"],82:["⛈️","Mưa bão<br><span style='font-size:9px;font-weight:500'>(Violent showers)</span>"],95:["⛈️","Dông bão<br><span style='font-size:9px;font-weight:500'>(Thunderstorm)</span>"],96:["⛈️","Dông bão<br><span style='font-size:9px;font-weight:500'>(Thunderstorm)</span>"],99:["⛈️","Dông bão<br><span style='font-size:9px;font-weight:500'>(Thunderstorm)</span>"]};
+  const wm={0:["☀️","Clear"],1:["🌤️","Mostly clear"],2:["⛅","Partly cloudy"],3:["☁️","Overcast"],45:["🌫️","Fog"],48:["🌫️","Fog"],51:["🌧️","Drizzle"],53:["🌧️","Drizzle"],55:["🌧️","Heavy drizzle"],61:["🌧️","Light rain"],63:["🌧️","Rain"],65:["🌧️","Heavy rain"],71:["❄️","Light snow"],73:["❄️","Snow"],75:["❄️","Heavy snow"],80:["🌧️","Showers"],81:["🌧️","Heavy showers"],82:["⛈️","Violent showers"],95:["⛈️","Thunderstorm"],96:["⛈️","Thunderstorm"],99:["⛈️","Thunderstorm"]};
   const cities=[{name:"Hanoi",lat:21.0285,lon:105.8542},{name:"Sapa",lat:22.3352,lon:103.8436},{name:"Ninh Binh",lat:20.2539,lon:105.9750},{name:"Halong Bay",lat:20.95,lon:107.0833}];
   
   function render(data) {
