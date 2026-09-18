@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6f7fb">
+<title>VND → INR Travel Utility</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:#15171a;background:#f6f7fb}
+*{box-sizing:border-box}body{margin:0}.app{max-width:460px;margin:auto;padding:22px 18px 38px}
+h1{font-size:30px;margin:8px 0 5px;font-weight:850;letter-spacing:-.7px}.sub{font-size:15px;color:#747982;margin-bottom:18px}
+.tabs{display:flex;background:#e8ebef;border-radius:15px;padding:3px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1;white-space:nowrap;border:0;background:transparent;color:#626873;border-radius:12px;padding:11px 14px;font-size:14px;font-weight:750}.tab.active{background:#fff;color:#15171a;box-shadow:0 1px 6px #00000014}
+.phrase{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #e9ebef;line-height:1.4}
+.phrase:last-child{border-bottom:0;padding-bottom:0}.phrase:first-child{padding-top:0}
+.call-btn{background:#e8ebef;color:#15171a;text-decoration:none;padding:6px 14px;border-radius:12px;font-size:13px;font-weight:750}
+.card{background:#fff;border:1px solid #e1e5ea;border-radius:24px;padding:20px;margin-bottom:14px;box-shadow:0 8px 30px #0000000a}
+.label{font-size:14px;color:#666c75;font-weight:700;margin-bottom:9px}
+.amount{width:100%;border:0;outline:0;background:#f0f2f5;border-radius:17px;padding:17px;font-size:34px;font-weight:800;color:#111}
+.formula{font-size:15px;color:#737982;margin-top:10px;font-variant-numeric:tabular-nums}
+.result{font-size:43px;font-weight:850;margin-top:5px;letter-spacing:-1px}.vnd{font-size:15px;color:#767c85;margin-top:3px}
+.line{height:1px;background:#e9ebef;margin:20px 0 16px}.split{display:flex;justify-content:space-between;align-items:center}
+.small{font-size:14px;color:#777d85}.per{font-size:28px;font-weight:800;margin-top:3px}.people{width:78px;text-align:center;border:1px solid #d7dae0;border-radius:14px;padding:10px;font-size:20px;font-weight:750;outline:none}
+.option{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:16px;border-top:1px solid #e9ebef}
+.switch{position:relative;width:48px;height:28px}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;inset:0;background:#d9dce1;border-radius:99px}.slider:before{content:"";position:absolute;width:22px;height:22px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px #0002}.switch input:checked+.slider{background:#15171a}.switch input:checked+.slider:before{transform:translateX(20px)}
+.rate{font-size:13px;color:#626871;margin-top:18px;line-height:1.5}.status{display:inline-flex;align-items:center;gap:7px;background:#f0f2f5;border-radius:99px;padding:8px 11px;margin-top:11px;font-size:13px;font-weight:700}.dot{width:8px;height:8px;border-radius:50%;background:#888}
+.bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:15px}.updated{font-size:12px;color:#858b93;line-height:1.4}button.action{background:#15171a;color:#fff;border:0;border-radius:14px;padding:13px 16px;font-size:14px;font-weight:750}
+.hidden{display:none!important}
+
+/* World clock */
+.clock-card{position:relative;overflow:hidden;padding:18px 20px;border-radius:24px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
+.clock-bg{position:absolute;right:0;bottom:0;width:100%;height:100%;background-size:cover;background-position:center right;background-repeat:no-repeat;opacity:0.4;z-index:1;mix-blend-mode:multiply;-webkit-mask-image:linear-gradient(to right,transparent 0%,black 55%);mask-image:linear-gradient(to right,transparent 0%,black 55%)}
+.clock-top{display:flex;align-items:center;gap:12px;position:relative;z-index:2}
+.flag-icon{width:34px;height:24px;border-radius:4px;object-fit:cover;box-shadow:0 1px 3px #0003}
+.clock-name{font-size:19px;font-weight:850;letter-spacing:-0.5px;color:#111}.zone{font-size:12px;color:#4b5563;margin-top:2px;font-weight:600}
+.clock-location{font-size:13px;color:#1f2937;margin-top:14px;font-weight:700;display:flex;align-items:center;gap:4px;position:relative;z-index:2}
+.clock-digital-area{display:flex;align-items:baseline;gap:8px;margin-top:2px;position:relative;z-index:2}
+.clock-time{font-size:44px;font-weight:850;letter-spacing:-1.5px;font-variant-numeric:tabular-nums;text-shadow:0 2px 10px #ffffff99}
+.clock-ampm{font-size:13px;font-weight:800;padding:4px 8px;border-radius:8px}
+.clock-date{font-size:13px;color:#374151;margin-top:2px;font-weight:600;position:relative;z-index:2}
+.clock-footer{display:flex;justify-content:space-between;align-items:center;margin-top:18px;position:relative;z-index:2;font-size:12px;font-weight:700}
+.sun-pill{color:#1f2937;display:flex;align-items:center;gap:6px}
+.diff-pill{padding:6px 12px;border-radius:10px}
+
+/* Clock face styling */
+.clock-face{position:absolute;right:20px;top:20px;width:125px;height:125px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#fff 54px,transparent 55px),repeating-conic-gradient(from -0.4deg,#cbd5e1 0deg,#cbd5e1 0.8deg,transparent 0.8deg,transparent 6deg),#fff;border:1px solid #e1e5ea;box-shadow:inset 0 2px 6px #00000008,0 4px 12px #0000000a;z-index:3}
+.clock-face:before{content:"12";position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:800;color:#15171a}
+.clock-face:after{content:"6";position:absolute;bottom:7px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:800;color:#15171a}
+.t3,.t9{position:absolute;top:50%;transform:translateY(-50%);font-size:11px;font-weight:800;color:#15171a}.t3{right:8px}.t9{left:8px}
+.hand{position:absolute;left:calc(50% - 2px);bottom:50%;width:4px;height:36px;border-radius:4px;background:#15171a;transform-origin:bottom;z-index:2}
+.hand2{position:absolute;left:calc(50% - 1.5px);bottom:50%;width:3px;height:48px;border-radius:3px;background:#4b5563;transform-origin:bottom;z-index:3}
+.second-hand{position:absolute;left:calc(50% - 1px);bottom:calc(50% - 12px);width:2px;height:65px;border-radius:2px;transform-origin:50% calc(100% - 12px);z-index:4}
+.center{position:absolute;width:8px;height:8px;border-radius:50%;background:#fff;border:2px solid;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5}
+
+/* Theme variations */
+.vn-card{background:linear-gradient(135deg, #fff5f5, #ffe4e6)!important;border-color:#fecdd3!important}
+.vn-card .clock-bg{background-image:url('vietnam.png')}
+.vn-card .clock-time{color:#9f1239}
+.vn-card .clock-ampm{background:#ffe4e6;color:#9f1239}
+.vn-card .diff-pill{background:#ffe4e6;color:#9f1239}
+.vn-card .second-hand{background:#e11d48}
+.vn-card .center{border-color:#e11d48}
+
+.in-card{background:linear-gradient(135deg, #f0fdfa, #e0f2fe)!important;border-color:#bae6fd!important}
+.in-card .clock-bg{background-image:url('india.png')}
+.in-card .clock-time{color:#0369a1}
+.in-card .clock-ampm{background:#e0f2fe;color:#0369a1}
+.in-card .diff-pill{background:#e0f2fe;color:#0369a1}
+.in-card .second-hand{background:#0284c7}
+.in-card .center{border-color:#0284c7}
+
+.sg-card{background:linear-gradient(135deg, #ecfdf5, #d1fae5)!important;border-color:#a7f3d0!important}
+.sg-card .clock-bg{background-image:url('singapore.png')}
+.sg-card .clock-time{color:#047857}
+.sg-card .clock-ampm{background:#d1fae5;color:#047857}
+.sg-card .diff-pill{background:#d1fae5;color:#047857}
+.sg-card .second-hand{background:#059669}
+.sg-card .center{border-color:#059669}
+.info{font-size:12px;color:#858b93;line-height:1.45}
+details.category-card summary{list-style:none;cursor:pointer;font-size:18px;color:#111;font-weight:700;display:flex;justify-content:space-between;align-items:center;user-select:none;margin-bottom:0}
+details.category-card summary::-webkit-details-marker{display:none}
+details.category-card[open] summary{margin-bottom:4px;border-bottom:1px solid #e9ebef;padding-bottom:14px}
+details.category-card summary .arrow{font-size:12px;color:#888;transition:transform 0.2s}
+details.category-card[open] summary .arrow{transform:rotate(180deg)}
+.quick-bills{display:flex;gap:8px;margin-top:14px;overflow-x:auto;scrollbar-width:none}
+.quick-bills::-webkit-scrollbar{display:none}
+.bill-btn{flex:1;background:#f0f2f5;border:0;padding:8px 0;border-radius:10px;font-size:14px;font-weight:750;color:#15171a;cursor:pointer;white-space:nowrap;text-align:center}
+.bill-btn:active{background:#e1e5ea}
+details.category-card[open] summary .arrow{transform:rotate(180deg)}
+.quick-bills{display:flex;gap:8px;margin-top:14px;overflow-x:auto;scrollbar-width:none}
+.quick-bills::-webkit-scrollbar{display:none}
+.bill-btn{flex:1;background:#f0f2f5;border:0;padding:8px 0;border-radius:10px;font-size:14px;font-weight:750;color:#15171a;cursor:pointer;white-space:nowrap;text-align:center}
+.bill-btn:active{background:#e1e5ea}
+.weather-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #bae6fd}
+.weather-row:last-child{border-bottom:0;padding-bottom:0}
+.w-city{font-weight:750;color:#0c4a6e;font-size:15px;flex:1}
+.w-desc{font-size:13px;color:#0369a1;text-align:right;flex:1;font-weight:600}
+.w-temp{font-weight:850;font-size:22px;color:#075985;width:60px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<main class="app">
+<h1>₫ VND → ₹ INR</h1>
+<div class="sub">Vietnam travel utility</div>
+
+<nav class="tabs">
+<button id="converterTab" class="tab active">💱 Converter</button>
+<button id="worldTimeTab" class="tab">🕐 Time</button>
+<button id="phrasesTab" class="tab">🗣️ Phrases</button>
+<button id="guideTab" class="tab">💡 Info</button>
+</nav>
+
+<section id="converter">
+<section class="card">
+<div class="label">Vietnamese amount</div>
+<input id="amount" class="amount" inputmode="decimal" placeholder="800" autocomplete="off">
+<div class="quick-bills">
+  <button class="bill-btn" data-val="50">50k</button>
+  <button class="bill-btn" data-val="100">100k</button>
+  <button class="bill-btn" data-val="200">200k</button>
+  <button class="bill-btn" data-val="500">500k</button>
+</div>
+<div id="formula" class="formula">800 × 1,000 = ₫800,000</div>
+</section>
+
+<section class="card">
+<div class="label">Total in INR</div>
+<div id="inr" class="result">₹0</div>
+<div id="vnd" class="vnd">₫0</div>
+
+<div id="splitArea" class="hidden">
+<div class="line"></div>
+<div class="split">
+<div><div class="small">Per person</div><div id="per" class="per">₹0</div></div>
+<div><div class="small">People</div><input id="people" class="people" type="number" min="1" step="1" value="9"></div>
+</div>
+</div>
+
+<div class="option">
+<div><div class="small" style="font-weight:700;color:#555b64">Show per-person split</div><div class="small">Default: off</div></div>
+<label class="switch"><input id="showSplit" type="checkbox"><span class="slider"></span></label>
+</div>
+
+<div id="rate" class="rate">Rate: loading live rate…</div>
+<div class="status"><span id="dot" class="dot"></span><span id="status">Fetching live rate…</span></div>
+<div class="bottom"><div id="updated" class="updated">Trying live exchange-rate services…</div><button class="action" id="refresh">Refresh</button></div>
+</section>
+</section>
+
+<section id="worldTime" class="hidden">
+<section class="card clock-card vn-card">
+  <div class="clock-bg"></div>
+  <div class="clock-top">
+    <img src="https://flagcdn.com/w40/vn.png" class="flag-icon" alt="VN">
+    <div><div class="clock-name">Vietnam</div><div class="zone">ICT • UTC+7</div></div>
+  </div>
+  <div class="clock-location">📍 Hanoi / Ho Chi Minh City</div>
+  <div class="clock-digital-area">
+    <div id="vnTime" class="clock-time">--:--:--</div>
+    <div id="vnAmPm" class="clock-ampm">PM</div>
+  </div>
+  <div id="vnDate" class="clock-date">Loading…</div>
+  <div class="clock-footer">
+    <div class="sun-pill">🌅 Sunrise 05:45 | Sunset 17:49</div>
+    <div class="diff-pill">Your time +1h 30m</div>
+  </div>
+  <div class="clock-face vn-face"><span class="t9">9</span><span class="t3">3</span><div class="hand"></div><div class="hand2"></div><div class="second-hand"></div><div class="center"></div></div>
+</section>
+
+<section class="card clock-card in-card">
+  <div class="clock-bg"></div>
+  <div class="clock-top">
+    <img src="https://flagcdn.com/w40/in.png" class="flag-icon" alt="IN">
+    <div><div class="clock-name">India</div><div class="zone">IST • UTC+5:30</div></div>
+  </div>
+  <div class="clock-location">📍 New Delhi</div>
+  <div class="clock-digital-area">
+    <div id="inTime" class="clock-time">--:--:--</div>
+    <div id="inAmPm" class="clock-ampm">PM</div>
+  </div>
+  <div id="inDate" class="clock-date">Loading…</div>
+  <div class="clock-footer">
+    <div class="sun-pill">🌅 Sunrise 06:05 | Sunset 18:12</div>
+    <div class="diff-pill">Your time</div>
+  </div>
+  <div class="clock-face in-face"><span class="t9">9</span><span class="t3">3</span><div class="hand"></div><div class="hand2"></div><div class="second-hand"></div><div class="center"></div></div>
+</section>
+
+<section class="card clock-card sg-card">
+  <div class="clock-bg"></div>
+  <div class="clock-top">
+    <img src="https://flagcdn.com/w40/sg.png" class="flag-icon" alt="SG">
+    <div><div class="clock-name">Singapore</div><div class="zone">SGT • UTC+8</div></div>
+  </div>
+  <div class="clock-location">📍 Singapore</div>
+  <div class="clock-digital-area">
+    <div id="sgTime" class="clock-time">--:--:--</div>
+    <div id="sgAmPm" class="clock-ampm">PM</div>
+  </div>
+  <div id="sgDate" class="clock-date">Loading…</div>
+  <div class="clock-footer">
+    <div class="sun-pill">🌅 Sunrise 06:53 | Sunset 19:00</div>
+    <div class="diff-pill">Your time +2h 30m</div>
+  </div>
+  <div class="clock-face sg-face"><span class="t9">9</span><span class="t3">3</span><div class="hand"></div><div class="hand2"></div><div class="second-hand"></div><div class="center"></div></div>
+</section>
+  
+<section class="card weather-card" style="background:linear-gradient(135deg, #f0fdfa, #e0f2fe);border-color:#bae6fd">
+  <div class="label" style="font-size:18px;color:#0369a1;margin-bottom:8px">⛅ Current Weather <span id="wStatus" style="font-size:12px;font-weight:500;color:#0284c7;float:right;margin-top:4px"></span></div>
+  <div class="weather-row" id="wHanoi">
+    <div class="w-city">Hanoi</div><div class="w-desc">Loading...</div><div class="w-temp">--°</div>
+  </div>
+  <div class="weather-row" id="wSapa">
+    <div class="w-city">Sapa</div><div class="w-desc">Loading...</div><div class="w-temp">--°</div>
+  </div>
+  <div class="weather-row" id="wHalong">
+    <div class="w-city">Halong Bay</div><div class="w-desc">Loading...</div><div class="w-temp">--°</div>
+  </div>
+</section>
+
+<section class="card info" style="display:flex;align-items:center;gap:12px;padding:16px;background:#f8fafc;border-color:#e2e8f0;border-radius:16px;box-shadow:none">
+  <div style="background:#3b82f6;color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:12px;flex-shrink:0">i</div>
+  <div style="color:#475569;font-size:13px;line-height:1.4">World Time works completely offline. It uses your phone's clock and built-in time-zone support; no internet or API is required.</div>
+</section>
+</section>
+
+<section id="phrases" class="hidden">
+<div class="info" style="margin-bottom:14px;color:#555b64;font-size:14px;line-height:1.5;text-align:left"><strong>💡 Tip:</strong> Vietnamese pronunciation can be difficult because of tones. Don't worry about perfect pronunciation—showing the phrase on your phone is often easier!</div>
+
+<section class="card">
+<div class="label" style="font-size:18px;color:#111;margin-bottom:14px">⭐ Top 10 to Memorize</div>
+<div class="phrase"><div><strong>Hello</strong><br><span style="color:#666;font-size:13px">Xin chào (sin jow)</span></div></div>
+<div class="phrase"><div><strong>Thank you</strong><br><span style="color:#666;font-size:13px">Cảm ơn (gahm uhn)</span></div></div>
+<div class="phrase"><div><strong>How much?</strong><br><span style="color:#666;font-size:13px">Bao nhiêu tiền? (bow nyew tee-en?)</span></div></div>
+<div class="phrase"><div><strong>Too expensive!</strong><br><span style="color:#666;font-size:13px">Mắc quá! (mahk wah!)</span></div></div>
+<div class="phrase"><div><strong>Can you make it cheaper?</strong><br><span style="color:#666;font-size:13px">Bớt được không? (buht duhk kohng?)</span></div></div>
+<div class="phrase"><div><strong>Bill, please</strong><br><span style="color:#666;font-size:13px">Tính tiền (ting tee-en)</span></div></div>
+<div class="phrase"><div><strong>Not spicy</strong><br><span style="color:#666;font-size:13px">Không cay (kohng kai)</span></div></div>
+<div class="phrase"><div><strong>Where is the toilet?</strong><br><span style="color:#666;font-size:13px">Nhà vệ sinh ở đâu? (nya vay sing uh dow?)</span></div></div>
+<div class="phrase"><div><strong>Where is this place?</strong><br><span style="color:#666;font-size:13px">Chỗ này ở đâu? (cho nay uh dow?)</span></div></div>
+<div class="phrase"><div><strong>Don't understand</strong><br><span style="color:#666;font-size:13px">Không hiểu (kohng hyew)</span></div></div>
+</section>
+
+<details class="card category-card">
+<summary>👋 Basic <span class="arrow">▼</span></summary>
+<div class="phrase"><div><strong>Hello</strong><br><span style="color:#666;font-size:13px">Xin chào (sin jow)</span></div></div>
+<div class="phrase"><div><strong>Thank you</strong><br><span style="color:#666;font-size:13px">Cảm ơn (gahm uhn)</span></div></div>
+<div class="phrase"><div><strong>Sorry / Excuse me</strong><br><span style="color:#666;font-size:13px">Xin lỗi (sin loy)</span></div></div>
+<div class="phrase"><div><strong>Yes / No</strong><br><span style="color:#666;font-size:13px">Có / Không (caw / kohng)</span></div></div>
+<div class="phrase"><div><strong>Please</strong><br><span style="color:#666;font-size:13px">Làm ơn (lam uhn)</span></div></div>
+<div class="phrase"><div><strong>I don't understand</strong><br><span style="color:#666;font-size:13px">Tôi không hiểu (toy kohng hyew)</span></div></div>
+<div class="phrase"><div><strong>Do you speak English?</strong><br><span style="color:#666;font-size:13px">Bạn có nói tiếng Anh không? (ban kaw noy tee-eng anh kohng?)</span></div></div>
+</details>
+
+<details class="card category-card">
+<summary>💰 Shopping & Money <span class="arrow">▼</span></summary>
+<div class="phrase"><div><strong>How much?</strong><br><span style="color:#666;font-size:13px">Bao nhiêu tiền? (bow nyew tee-en?)</span></div></div>
+<div class="phrase"><div><strong>Too expensive!</strong><br><span style="color:#666;font-size:13px">Mắc quá! (mahk wah!)</span></div></div>
+<div class="phrase"><div><strong>Can you make it cheaper?</strong><br><span style="color:#666;font-size:13px">Bớt được không? (buht duhk kohng?)</span></div></div>
+<div class="phrase"><div><strong>I don't want it</strong><br><span style="color:#666;font-size:13px">Tôi không lấy (toy kohng lay)</span></div></div>
+<div class="phrase"><div><strong>I want this</strong><br><span style="color:#666;font-size:13px">Tôi muốn cái này (toy moo-uhn guy nay)</span></div></div>
+<div class="phrase"><div><strong>Cash</strong><br><span style="color:#666;font-size:13px">Tiền mặt (tee-en maht)</span></div></div>
+<div class="phrase"><div><strong>Card</strong><br><span style="color:#666;font-size:13px">Thẻ (tay)</span></div></div>
+<div class="phrase"><div><strong>Do you accept cards?</strong><br><span style="color:#666;font-size:13px">Có nhận thẻ không? (caw nyun tay kohng?)</span></div></div>
+</details>
+
+<details class="card category-card">
+<summary>🍜 Food & Restaurants <span class="arrow">▼</span></summary>
+<div class="phrase"><div><strong>Delicious!</strong><br><span style="color:#666;font-size:13px">Ngon! (ngon!)</span></div></div>
+<div class="phrase"><div><strong>The bill, please</strong><br><span style="color:#666;font-size:13px">Tính tiền (ting tee-en)</span></div></div>
+<div class="phrase"><div><strong>Water, please</strong><br><span style="color:#666;font-size:13px">Cho tôi nước (chaw toy nook)</span></div></div>
+<div class="phrase"><div><strong>No spicy</strong><br><span style="color:#666;font-size:13px">Không cay (kohng kai)</span></div></div>
+<div class="phrase"><div><strong>A little spicy</strong><br><span style="color:#666;font-size:13px">Ít cay (eet kai)</span></div></div>
+<div class="phrase"><div><strong>No ice</strong><br><span style="color:#666;font-size:13px">Không đá (kohng dah)</span></div></div>
+<div class="phrase"><div><strong>No sugar</strong><br><span style="color:#666;font-size:13px">Không đường (kohng du-ung)</span></div></div>
+<div class="phrase"><div><strong>Without meat</strong><br><span style="color:#666;font-size:13px">Không thịt (kohng tit)</span></div></div>
+<div class="phrase"><div><strong>I'm vegetarian</strong><br><span style="color:#666;font-size:13px">Tôi ăn chay (toy an chai)</span></div></div>
+</details>
+
+<details class="card category-card">
+<summary>🚕 Grab / Taxi <span class="arrow">▼</span></summary>
+<div class="phrase"><div><strong>Where is this place?</strong><br><span style="color:#666;font-size:13px">Chỗ này ở đâu? (cho nay uh dow?)</span></div></div>
+<div class="phrase"><div><strong>Please take me here</strong><br><span style="color:#666;font-size:13px">Cho tôi đến đây (chaw toy den day)</span></div></div>
+<div class="phrase"><div><strong>Stop here, please</strong><br><span style="color:#666;font-size:13px">Dừng ở đây (zung uh day)</span></div></div>
+<div class="phrase"><div><strong>How long will it take?</strong><br><span style="color:#666;font-size:13px">Bao lâu? (bow low?)</span></div></div>
+<div class="phrase"><div><strong>Is this the right place?</strong><br><span style="color:#666;font-size:13px">Đúng chỗ này không? (doong cho nay kohng?)</span></div></div>
+<div class="phrase"><div><strong>Wait here, please</strong><br><span style="color:#666;font-size:13px">Đợi ở đây (doy uh day)</span></div></div>
+</details>
+
+<details class="card category-card">
+<summary>🏨 Hotel <span class="arrow">▼</span></summary>
+<div class="phrase"><div><strong>I have a reservation</strong><br><span style="color:#666;font-size:13px">Tôi có đặt phòng (toy kaw daht fong)</span></div></div>
+<div class="phrase"><div><strong>Where is my room?</strong><br><span style="color:#666;font-size:13px">Phòng của tôi ở đâu? (fong koo-ah toy uh dow?)</span></div></div>
+<div class="phrase"><div><strong>Wi-Fi password?</strong><br><span style="color:#666;font-size:13px">Mật khẩu Wi-Fi là gì? (maht kow lee vee-fai la zee?)</span></div></div>
+<div class="phrase"><div><strong>Can I leave my luggage here?</strong><br><span style="color:#666;font-size:13px">Tôi có thể để hành lý ở đây không?<br>(toy kaw thay day han lee uh day kohng?)</span></div></div>
+</details>
+
+<details class="card category-card">
+<summary>🗺️ Directions <span class="arrow">▼</span></summary>
+<div class="phrase"><div><strong>Where is the toilet?</strong><br><span style="color:#666;font-size:13px">Nhà vệ sinh ở đâu? (nya vay sing uh dow?)</span></div></div>
+<div class="phrase"><div><strong>Where is the bus stop?</strong><br><span style="color:#666;font-size:13px">Trạm xe buýt ở đâu? (tram say bwit uh dow?)</span></div></div>
+<div class="phrase"><div><strong>Where is the train station?</strong><br><span style="color:#666;font-size:13px">Ga tàu ở đâu? (ga tow uh dow?)</span></div></div>
+<div class="phrase"><div><strong>Left</strong><br><span style="color:#666;font-size:13px">Trái (chai)</span></div></div>
+<div class="phrase"><div><strong>Right</strong><br><span style="color:#666;font-size:13px">Phải (fai)</span></div></div>
+<div class="phrase"><div><strong>Straight</strong><br><span style="color:#666;font-size:13px">Thẳng (tang)</span></div></div>
+</details>
+
+<details class="card category-card">
+<summary>🆘 Emergency <span class="arrow">▼</span></summary>
+<div class="phrase"><div><strong>Help!</strong><br><span style="color:#666;font-size:13px">Giúp tôi! (zoop toy!)</span></div></div>
+<div class="phrase"><div><strong>Call the police!</strong><br><span style="color:#666;font-size:13px">Gọi cảnh sát! (goy kan sat!)</span></div></div>
+<div class="phrase"><div><strong>I need a doctor</strong><br><span style="color:#666;font-size:13px">Tôi cần bác sĩ (toy gun bak see)</span></div></div>
+<div class="phrase"><div><strong>Where is the hospital?</strong><br><span style="color:#666;font-size:13px">Bệnh viện ở đâu? (ben vee-en uh dow?)</span></div></div>
+<div class="phrase"><div><strong>I lost my passport</strong><br><span style="color:#666;font-size:13px">Tôi mất hộ chiếu (toy muht ho-chew)</span></div></div>
+</details>
+</section>
+
+<section id="guide" class="hidden">
+<section class="card">
+<div class="label" style="font-size:18px;color:#111;margin-bottom:14px">🚨 Important Numbers</div>
+<div class="phrase"><div><strong>🚔 Police</strong><br><span style="color:#666;font-size:13px">113</span></div><a href="tel:113" class="call-btn">Call</a></div>
+<div class="phrase"><div><strong>🚑 Ambulance</strong><br><span style="color:#666;font-size:13px">115</span></div><a href="tel:115" class="call-btn">Call</a></div>
+<div class="phrase"><div><strong>🔥 Fire & Rescue</strong><br><span style="color:#666;font-size:13px">114</span></div><a href="tel:114" class="call-btn">Call</a></div>
+<div class="phrase"><div><strong>🇮🇳 Indian Embassy (Hanoi)</strong><br><span style="color:#666;font-size:13px">+84 24 3824 4990<br>58–60 Tran Hung Dao, Hoan Kiem</span></div></div>
+<div class="phrase"><div><strong>🇮🇳 Indian Consulate (HCMC)</strong><br><span style="color:#666;font-size:13px">+84 28 3823 7050<br>207B Tran Hung Dao, District 1</span></div></div>
+<div class="phrase"><div><strong>📞 Tourist Hotline</strong><br><span style="color:#666;font-size:13px">1800 556 896<br>Tourism support line (availability varies)</span></div><a href="tel:1800556896" class="call-btn">Call</a></div>
+</section>
+
+<section class="card">
+<div class="label" style="font-size:18px;color:#111;margin-bottom:14px">💡 Etiquette & Tips</div>
+<ul style="padding-left:20px;font-size:14px;color:#444;line-height:1.6;margin:0">
+<li style="margin-bottom:10px"><strong>Tipping:</strong> Not expected or mandatory. A small tip (5-10%) in upscale places or for exceptional service is appreciated but never required.</li>
+<li style="margin-bottom:10px"><strong>Handing Money:</strong> Try to use both hands when giving or receiving money to show respect.</li>
+<li style="margin-bottom:10px"><strong>Temples:</strong> Cover your shoulders and knees when visiting pagodas. Remove shoes if required.</li>
+<li style="margin-bottom:10px"><strong>Crossing the street:</strong> Walk slowly and predictably. Don't step back. Motorbikes will swerve around you.</li>
+<li><strong>Bargaining:</strong> Expected in markets (like Ben Thanh). Start at 40-50% of the asking price and work up with a smile.</li>
+</ul>
+</section>
+</section>
+
+<div class="info" style="text-align:center;margin-top:14px">Live exchange rate when online • last successful rate saved for offline use</div>
+</main>
+
+<script>
+const FALLBACK=0.003688,RK="vnd_inr_rate",TK="vnd_inr_time";
+let rate=Number(localStorage.getItem(RK))||FALLBACK;
+const $=id=>document.getElementById(id);
+const fmt=n=>"₹"+Number(n).toLocaleString("en-IN",{maximumFractionDigits:2});
+
+function calculate(){
+ const units=parseFloat($("amount").value)||0;
+ const vnd=units*1000;
+ const people=Math.max(1,parseInt($("people").value)||1);
+ const total=vnd*rate;
+ $("formula").textContent=(units||0).toLocaleString("en-IN",{maximumFractionDigits:3})+" × 1,000 = ₫"+vnd.toLocaleString("en-US");
+ $("vnd").textContent="₫"+vnd.toLocaleString("en-US");
+ $("inr").textContent=fmt(total);
+ $("per").textContent=fmt(total/people);
+}
+function renderRate(){ $("rate").textContent="Rate: 1 VND = ₹"+rate.toFixed(6)+" • 100,000 VND = "+fmt(rate*100000);calculate() }
+function status(ok){$("status").textContent=ok?"Live rate":"Saved/default rate";$("dot").style.background=ok?"#20a46b":"#888"}
+async function fetchLive(){
+ $("status").textContent="Fetching live rate…";$("updated").textContent="Trying live exchange-rate services…";
+ const urls=["https://api.frankfurter.app/latest?from=VND&to=INR","https://open.er-api.com/v6/latest/VND"];
+ for(const url of urls){
+  try{
+   const c=new AbortController(),t=setTimeout(()=>c.abort(),5000);
+   const r=await fetch(url,{cache:"no-store",signal:c.signal});clearTimeout(t);
+   if(!r.ok)continue;
+   const d=await r.json(),q=Number(d?.rates?.INR);
+   if(q>0&&q<1){
+    rate=q;localStorage.setItem(RK,String(q));localStorage.setItem(TK,new Date().toISOString());
+    status(true);renderRate();$("updated").textContent="Live rate updated just now";return;
+   }
+  }catch(e){}
+ }
+ status(false);renderRate();
+ const t=localStorage.getItem(TK);
+ $("updated").textContent=t?"Live fetch unavailable • using rate saved "+new Date(t).toLocaleString():"Live fetch unavailable • using default rate";
+}
+
+function updateClocks(){
+ const now=new Date();
+ const date={weekday:"short",day:"numeric",month:"short",year:"numeric"};
+ const zones=[
+  ["Asia/Ho_Chi_Minh","vnTime","vnDate"],
+  ["Asia/Kolkata","inTime","inDate"],
+  ["Asia/Singapore","sgTime","sgDate"]
+ ];
+ zones.forEach(([z,t,d],i)=>{
+  const timeStr = new Intl.DateTimeFormat("en-US",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true,timeZone:z}).format(now);
+  const partsT = timeStr.split(" ");
+  $(t).textContent = partsT[0];
+  const ampmEl = $(t.replace("Time","AmPm"));
+  if(ampmEl) ampmEl.textContent = partsT[1];
+  $(d).textContent=new Intl.DateTimeFormat("en-GB",{...date,timeZone:z}).format(now);
+  const parts=new Intl.DateTimeFormat("en-US",{hour:"numeric",minute:"numeric",second:"numeric",hour12:false,timeZone:z}).formatToParts(now);
+  const get=k=>Number(parts.find(x=>x.type===k)?.value||0);
+  let h=get("hour"); if(h===24)h=0;
+  const m=get("minute"),s=get("second");
+  const face=document.querySelectorAll(".clock-face")[i];
+  if(face){
+   const hourDeg=(h%12)*30+m*.5;
+   const minDeg=m*6+s*.1;
+   const secDeg=s*6;
+   face.querySelector(".hand").style.transform=`rotate(${hourDeg}deg)`;
+   face.querySelector(".hand2").style.transform=`rotate(${minDeg}deg)`;
+   face.querySelector(".second-hand").style.transform=`rotate(${secDeg}deg)`;
+  }
+ });
+}
+function openTab(id){
+ const t=["converter","worldTime","phrases","guide"];
+ t.forEach(x=>{
+  $(x).classList.toggle("hidden",x!==id);
+  $(x+"Tab").classList.toggle("active",x===id);
+ });
+ if(id==="worldTime")updateClocks();
+}
+$("converterTab").onclick=()=>openTab("converter");
+$("worldTimeTab").onclick=()=>openTab("worldTime");
+$("phrasesTab").onclick=()=>openTab("phrases");
+$("guideTab").onclick=()=>openTab("guide");
+$("amount").oninput=calculate;$("people").oninput=calculate;
+document.querySelectorAll(".bill-btn").forEach(b=>b.onclick=()=>{
+ $("amount").value=b.getAttribute("data-val");calculate();
+});
+$("showSplit").onchange=()=>$("splitArea").classList.toggle("hidden",!$("showSplit").checked);
+$("refresh").onclick=fetchLive;
+window.ononline=()=>{fetchLive();fetchWeather()};window.onoffline=()=>{status(false);renderRate()};
+
+async function fetchWeather() {
+  const wm={0:"☀️ Clear",1:"🌤️ Mostly Clear",2:"⛅ Partly Cloudy",3:"☁️ Overcast",45:"🌫️ Fog",48:"🌫️ Fog",51:"🌧️ Light Drizzle",53:"🌧️ Drizzle",55:"🌧️ Heavy Drizzle",61:"🌧️ Light Rain",63:"🌧️ Rain",65:"🌧️ Heavy Rain",71:"❄️ Light Snow",73:"❄️ Snow",75:"❄️ Heavy Snow",80:"🌧️ Rain Showers",81:"🌧️ Showers",82:"🌧️ Heavy Showers",95:"⛈️ Thunderstorm",96:"⛈️ Thunderstorm",99:"⛈️ Thunderstorm"};
+  const cities=[{id:"wHanoi",lat:21.0285,lon:105.8542},{id:"wSapa",lat:22.3352,lon:103.8436},{id:"wHalong",lat:20.95,lon:107.0833}];
+  let hasCache = false;
+  cities.forEach(c => {
+    const cached = localStorage.getItem("weather_" + c.id);
+    if(cached) {
+      try {
+        hasCache = true;
+        const cw = JSON.parse(cached);
+        document.querySelector(`#${c.id} .w-temp`).textContent = Math.round(cw.temperature) + "°";
+        document.querySelector(`#${c.id} .w-desc`).textContent = wm[cw.weathercode] || "☁️ Cloudy";
+      } catch(e){}
+    }
+  });
+  if(!navigator.onLine) {
+    $("wStatus").textContent = hasCache ? "Offline (Saved)" : "Offline";
+    return;
+  }
+  $("wStatus").textContent = "Updating...";
+  await Promise.all(cities.map(async c => {
+    try {
+      const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current_weather=true`);
+      if(!r.ok) return;
+      const d = await r.json();
+      const cw = d.current_weather;
+      localStorage.setItem("weather_" + c.id, JSON.stringify(cw));
+      document.querySelector(`#${c.id} .w-temp`).textContent = Math.round(cw.temperature) + "°";
+      document.querySelector(`#${c.id} .w-desc`).textContent = wm[cw.weathercode] || "☁️ Cloudy";
+    } catch(e) {}
+  }));
+  $("wStatus").textContent = "Live 🟢";
+}
+
+renderRate();fetchLive();fetchWeather();updateClocks();setInterval(updateClocks,1000);
+</script>
+</body></html>
