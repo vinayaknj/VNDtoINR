@@ -145,6 +145,27 @@ details.category-card[open] summary .arrow{transform:rotate(180deg)}
 <label class="switch"><input id="showSplit" type="checkbox"><span class="slider"></span></label>
 </div>
 
+<section class="card" style="background:linear-gradient(135deg, #f8fafc, #f1f5f9);border-color:#e2e8f0;padding:16px 20px;margin:18px 0 14px 0;box-shadow:none">
+  <div style="font-size:15px;color:#334155;font-weight:800;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
+    <span>💵 USD Exchange Guide</span>
+    <span id="usdRateText" style="font-size:12px;color:#64748b;font-weight:700">Loading...</span>
+  </div>
+  <div style="display:flex;justify-content:space-between;gap:10px">
+    <div style="flex:1;background:#fff;border-radius:12px;padding:10px 4px;text-align:center;box-shadow:0 2px 6px #00000008;border:1px solid #e2e8f0">
+      <div style="font-size:13px;color:#64748b;font-weight:750;margin-bottom:4px">$100</div>
+      <div id="usd100" style="font-size:14px;font-weight:850;color:#0f172a">--</div>
+    </div>
+    <div style="flex:1;background:#fff;border-radius:12px;padding:10px 4px;text-align:center;box-shadow:0 2px 6px #00000008;border:1px solid #e2e8f0">
+      <div style="font-size:13px;color:#64748b;font-weight:750;margin-bottom:4px">$50</div>
+      <div id="usd50" style="font-size:14px;font-weight:850;color:#0f172a">--</div>
+    </div>
+    <div style="flex:1;background:#fff;border-radius:12px;padding:10px 4px;text-align:center;box-shadow:0 2px 6px #00000008;border:1px solid #e2e8f0">
+      <div style="font-size:13px;color:#64748b;font-weight:750;margin-bottom:4px">$20</div>
+      <div id="usd20" style="font-size:14px;font-weight:850;color:#0f172a">--</div>
+    </div>
+  </div>
+</section>
+
 <div id="rate" class="rate">Rate: loading live rate…</div>
 <div class="status"><span id="dot" class="dot"></span><span id="status">Fetching live rate…</span></div>
 <div class="bottom"><div id="updated" class="updated">Trying live exchange-rate services…</div><button class="action" id="refresh">Refresh</button></div>
@@ -376,26 +397,39 @@ function calculate(){
  $("inr").textContent=fmt(total);
  $("per").textContent=fmt(total/people);
 }
-function renderRate(){ $("rate").textContent="Rate: 1 VND = ₹"+rate.toFixed(6)+" • 100,000 VND = "+fmt(rate*100000);calculate() }
+function renderUsd(usdRate) {
+  $("usdRateText").textContent = "$1 = ₫" + Math.round(usdRate).toLocaleString("en-US");
+  $("usd100").textContent = "₫" + Math.round(usdRate * 100).toLocaleString("en-US");
+  $("usd50").textContent = "₫" + Math.round(usdRate * 50).toLocaleString("en-US");
+  $("usd20").textContent = "₫" + Math.round(usdRate * 20).toLocaleString("en-US");
+}
+function renderRate(){ $("rate").textContent="Rate: 1 VND = ₹"+rate.toFixed(6)+" • 100,000 VND = "+fmt(rate*100000);calculate(); renderUsd(Number(localStorage.getItem("usd_vnd"))||25300); }
 function status(ok){$("status").textContent=ok?"Live rate":"Saved/default rate";$("dot").style.background=ok?"#20a46b":"#888"}
 async function fetchLive(){
  $("status").textContent="Fetching live rate…";$("updated").textContent="Trying live exchange-rate services…";
- const urls=["https://api.frankfurter.app/latest?from=VND&to=INR","https://open.er-api.com/v6/latest/VND"];
+ $("usdRateText").textContent="Updating...";
+ const urls=["https://api.frankfurter.app/latest?from=VND&to=INR,USD","https://open.er-api.com/v6/latest/VND"];
+ let success = false;
  for(const url of urls){
   try{
    const c=new AbortController(),t=setTimeout(()=>c.abort(),5000);
    const r=await fetch(url,{cache:"no-store",signal:c.signal});clearTimeout(t);
    if(!r.ok)continue;
-   const d=await r.json(),q=Number(d?.rates?.INR);
+   const d=await r.json(),q=Number(d?.rates?.INR),u=Number(d?.rates?.USD);
    if(q>0&&q<1){
     rate=q;localStorage.setItem(RK,String(q));localStorage.setItem(TK,new Date().toISOString());
-    status(true);renderRate();$("updated").textContent="Live rate updated just now";return;
+    if(u>0) localStorage.setItem("usd_vnd", String(1/u));
+    status(true);renderRate();$("updated").textContent="Live rate updated just now";
+    success = true;
+    break;
    }
   }catch(e){}
  }
- status(false);renderRate();
- const t=localStorage.getItem(TK);
- $("updated").textContent=t?"Live fetch unavailable • using rate saved "+new Date(t).toLocaleString():"Live fetch unavailable • using default rate";
+ if(!success){
+  status(false);renderRate();
+  const t=localStorage.getItem(TK);
+  $("updated").textContent=t?"Live fetch unavailable • using rate saved "+new Date(t).toLocaleString():"Live fetch unavailable • using default rate";
+ }
 }
 
 function updateClocks(){
