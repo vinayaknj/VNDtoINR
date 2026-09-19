@@ -416,17 +416,20 @@ function status(ok){$("status").textContent=ok?"Live rate":"Saved/default rate";
 async function fetchLive(){
  $("status").textContent="Fetching live rate…";$("updated").textContent="Trying live exchange-rate services…";
  $("usdRateText").textContent="Updating...";
- const urls=["https://api.frankfurter.app/latest?from=VND&to=INR,USD","https://open.er-api.com/v6/latest/VND"];
+ const urls=["https://open.er-api.com/v6/latest/USD","https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json"];
  let success = false;
  for(const url of urls){
   try{
    const c=new AbortController(),t=setTimeout(()=>c.abort(),5000);
    const r=await fetch(url,{cache:"no-store",signal:c.signal});clearTimeout(t);
    if(!r.ok)continue;
-   const d=await r.json(),q=Number(d?.rates?.INR),u=Number(d?.rates?.USD);
-   if(q>0&&q<1){
+   const d=await r.json();
+   const rates = d.rates || d.usd;
+   const inr=Number(rates?.INR || rates?.inr), vnd=Number(rates?.VND || rates?.vnd);
+   if(inr>0 && vnd>0){
+    const q = inr / vnd;
     rate=q;localStorage.setItem(RK,String(q));localStorage.setItem(TK,new Date().toISOString());
-    if(u>0) localStorage.setItem("usd_vnd", String(1/u));
+    localStorage.setItem("usd_vnd", String(vnd));
     status(true);renderRate();$("updated").textContent="Live rate updated just now";
     success = true;
     break;
