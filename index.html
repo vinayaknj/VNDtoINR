@@ -115,6 +115,12 @@ details.category-card[open] summary .arrow{transform:rotate(180deg)}
 </nav>
 
 <section id="converter">
+<div style="display:flex;background:#e8ebef;border-radius:12px;padding:3px;margin-bottom:16px">
+  <button id="modeVndInrBtn" class="tab active" style="flex:1">VND → INR</button>
+  <button id="modeUsdVndBtn" class="tab" style="flex:1">USD → VND</button>
+</div>
+
+<div id="viewVndInr">
 <section class="card">
 <div class="label">Vietnamese amount</div>
 <input id="amount" class="amount" inputmode="decimal" placeholder="800" autocomplete="off">
@@ -144,29 +150,29 @@ details.category-card[open] summary .arrow{transform:rotate(180deg)}
 <div><div class="small" style="font-weight:700;color:#555b64">Show per-person split</div><div class="small">Default: off</div></div>
 <label class="switch"><input id="showSplit" type="checkbox"><span class="slider"></span></label>
 </div>
+<div id="rate" class="rate">Rate: loading live rate…</div>
+</section>
+</div>
 
-<section class="card" style="background:linear-gradient(135deg, #f8fafc, #f1f5f9);border-color:#e2e8f0;padding:16px 20px;margin:18px 0 14px 0;box-shadow:none">
-  <div style="font-size:15px;color:#334155;font-weight:800;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
-    <span>💵 USD Exchange Guide</span>
-    <span id="usdRateText" style="font-size:12px;color:#64748b;font-weight:700">Loading...</span>
-  </div>
-  <div style="display:flex;justify-content:space-between;gap:10px">
-    <div style="flex:1;background:#fff;border-radius:12px;padding:10px 4px;text-align:center;box-shadow:0 2px 6px #00000008;border:1px solid #e2e8f0">
-      <div style="font-size:13px;color:#64748b;font-weight:750;margin-bottom:4px">$100</div>
-      <div id="usd100" style="font-size:14px;font-weight:850;color:#0f172a">--</div>
-    </div>
-    <div style="flex:1;background:#fff;border-radius:12px;padding:10px 4px;text-align:center;box-shadow:0 2px 6px #00000008;border:1px solid #e2e8f0">
-      <div style="font-size:13px;color:#64748b;font-weight:750;margin-bottom:4px">$50</div>
-      <div id="usd50" style="font-size:14px;font-weight:850;color:#0f172a">--</div>
-    </div>
-    <div style="flex:1;background:#fff;border-radius:12px;padding:10px 4px;text-align:center;box-shadow:0 2px 6px #00000008;border:1px solid #e2e8f0">
-      <div style="font-size:13px;color:#64748b;font-weight:750;margin-bottom:4px">$20</div>
-      <div id="usd20" style="font-size:14px;font-weight:850;color:#0f172a">--</div>
-    </div>
-  </div>
+<div id="viewUsdVnd" class="hidden">
+<section class="card" style="background:#f8fafc;border-color:#e2e8f0">
+<div class="label">US Dollars (USD)</div>
+<input id="amountUsd" class="amount" inputmode="decimal" placeholder="100" value="100" autocomplete="off" style="background:#fff;border:1px solid #cbd5e1">
+<div class="quick-bills">
+  <button class="bill-btn-usd bill-btn" data-val="10">$10</button>
+  <button class="bill-btn-usd bill-btn" data-val="20">$20</button>
+  <button class="bill-btn-usd bill-btn" data-val="50">$50</button>
+  <button class="bill-btn-usd bill-btn" data-val="100">$100</button>
+</div>
 </section>
 
-<div id="rate" class="rate">Rate: loading live rate…</div>
+<section class="card">
+<div class="label">Total in VND</div>
+<div id="usdResultVnd" class="result" style="color:#0f172a;font-size:38px">₫0</div>
+<div id="usdRateText" class="vnd" style="color:#0369a1;font-weight:700;margin-top:6px">Rate: $1 = ₫...</div>
+</section>
+</div>
+
 <div class="status"><span id="dot" class="dot"></span><span id="status">Fetching live rate…</span></div>
 <div class="bottom"><div id="updated" class="updated">Trying live exchange-rate services…</div><button class="action" id="refresh">Refresh</button></div>
 </section>
@@ -398,10 +404,9 @@ function calculate(){
  $("per").textContent=fmt(total/people);
 }
 function renderUsd(usdRate) {
-  $("usdRateText").textContent = "$1 = ₫" + Math.round(usdRate).toLocaleString("en-US");
-  $("usd100").textContent = "₫" + Math.round(usdRate * 100).toLocaleString("en-US");
-  $("usd50").textContent = "₫" + Math.round(usdRate * 50).toLocaleString("en-US");
-  $("usd20").textContent = "₫" + Math.round(usdRate * 20).toLocaleString("en-US");
+  const el = $("usdRateText");
+  if(el) el.textContent = "Rate: $1 = ₫" + Math.round(usdRate).toLocaleString("en-US");
+  if(typeof calculateUsd === "function") calculateUsd();
 }
 function renderRate(){ $("rate").textContent="Rate: 1 VND = ₹"+rate.toFixed(6)+" • 100,000 VND = "+fmt(rate*100000);calculate(); renderUsd(Number(localStorage.getItem("usd_vnd"))||25300); }
 function status(ok){$("status").textContent=ok?"Live rate":"Saved/default rate";$("dot").style.background=ok?"#20a46b":"#888"}
@@ -478,6 +483,25 @@ $("amount").oninput=calculate;$("people").oninput=calculate;
 document.querySelectorAll(".bill-btn").forEach(b=>b.onclick=()=>{
  $("amount").value=b.getAttribute("data-val");calculate();
 });
+function calculateUsd(){
+  const usd = parseFloat($("amountUsd").value)||0;
+  const usdRate = Number(localStorage.getItem("usd_vnd"))||25300;
+  const vnd = usd * usdRate;
+  $("usdResultVnd").textContent="₫"+Math.round(vnd).toLocaleString("en-US");
+}
+$("amountUsd").oninput=calculateUsd;
+document.querySelectorAll(".bill-btn-usd").forEach(b=>b.onclick=()=>{
+ $("amountUsd").value=b.getAttribute("data-val");calculateUsd();
+});
+$("modeVndInrBtn").onclick=()=>{
+  $("viewVndInr").classList.remove("hidden");$("viewUsdVnd").classList.add("hidden");
+  $("modeVndInrBtn").classList.add("active");$("modeUsdVndBtn").classList.remove("active");
+};
+$("modeUsdVndBtn").onclick=()=>{
+  $("viewVndInr").classList.add("hidden");$("viewUsdVnd").classList.remove("hidden");
+  $("modeVndInrBtn").classList.remove("active");$("modeUsdVndBtn").classList.add("active");
+  calculateUsd();
+};
 $("showSplit").onchange=()=>$("splitArea").classList.toggle("hidden",!$("showSplit").checked);
 $("refresh").onclick=fetchLive;
 window.ononline=()=>{fetchLive();fetchWeather()};window.onoffline=()=>{status(false);renderRate()};
