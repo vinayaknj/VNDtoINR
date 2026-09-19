@@ -170,8 +170,16 @@ details.category-card[open] summary .arrow{transform:rotate(180deg)}
 <div class="label">Total in VND</div>
 <div id="usdResultVnd" class="result" style="color:#0f172a;font-size:38px">₫0</div>
 <div id="usdRateText" class="vnd" style="color:#0369a1;font-weight:700;margin-top:6px">Rate: $1 = ₫...</div>
-<div style="font-size:12px;color:#166534;margin-top:12px;line-height:1.4;background:#f0fdf4;padding:10px;border-radius:10px;border:1px solid #bbf7d0">
-  💡 <b>Baseline Rate:</b> This is the true mid-market rate without fees. Use it to check if a currency exchange or gold shop is giving you a fair deal!
+<div style="font-size:12px;color:#334155;margin-top:14px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;overflow:hidden">
+  <div style="background:#f1f5f9;padding:8px 10px;font-weight:800;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;color:#475569">
+    <span>📊 Exchange Deal Checker (per $1)</span>
+  </div>
+  <div style="padding:10px;display:flex;flex-direction:column;gap:8px">
+    <div style="display:flex;justify-content:space-between;align-items:center"><span id="deal1" style="font-weight:750;color:#16a34a;font-size:13px">₫26,000</span><span style="color:#475569;font-weight:600">Very good (Market rate)</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center"><span id="deal2" style="font-weight:750;color:#0284c7;font-size:13px">₫25,800</span><span style="color:#475569;font-weight:600">Reasonable</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center"><span id="deal3" style="font-weight:750;color:#d97706;font-size:13px">₫25,500</span><span style="color:#475569;font-weight:600">Acceptable</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center"><span id="deal4" style="font-weight:750;color:#dc2626;font-size:13px">Below ₫25,000</span><span style="color:#475569;font-weight:600">Compare elsewhere</span></div>
+  </div>
 </div>
 </section>
 </div>
@@ -409,6 +417,13 @@ function calculate(){
 function renderUsd(usdRate) {
   const el = $("usdRateText");
   if(el) el.textContent = "Rate: $1 = ₫" + Math.round(usdRate).toLocaleString("en-US");
+  
+  const b = Math.floor(usdRate/50)*50;
+  if($("deal1")) $("deal1").textContent = "₫"+b.toLocaleString("en-US")+"+";
+  if($("deal2")) $("deal2").textContent = "₫"+(b-200).toLocaleString("en-US")+" – ₫"+(b-50).toLocaleString("en-US");
+  if($("deal3")) $("deal3").textContent = "₫"+(b-500).toLocaleString("en-US")+"+";
+  if($("deal4")) $("deal4").textContent = "Below ₫"+(b-1000).toLocaleString("en-US");
+
   if(typeof calculateUsd === "function") calculateUsd();
 }
 function renderRate(){ $("rate").textContent="Rate: 1 VND = ₹"+rate.toFixed(6)+" • 100,000 VND = "+fmt(rate*100000);calculate(); renderUsd(Number(localStorage.getItem("usd_vnd"))||25300); }
