@@ -100,7 +100,53 @@ details.category-card[open] summary .arrow{transform:rotate(180deg)}
 .w-day-desc{font-size:11px;color:#64748b;font-weight:600;margin-bottom:6px;line-height:1.1;height:24px;display:flex;align-items:center;justify-content:center;text-align:center}
 .w-day-temp{font-size:15px;font-weight:850;color:#0369a1}
 .w-day-min{font-size:12px;color:#94a3b8;font-weight:600;margin-left:4px}
+
+/* Itinerary styles */
+.iti-hero { background: linear-gradient(135deg, #1e293b, #0f172a); color: #fff; border-radius: 24px; padding: 20px; margin-bottom: 14px; position: relative; overflow: hidden; box-shadow: 0 10px 30px #0000001f; }
+.iti-hero-title { font-size: 22px; font-weight: 850; letter-spacing: -0.5px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.iti-hero-date { font-size: 13px; color: #94a3b8; font-weight: 600; margin-bottom: 12px; }
+.iti-route { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin-bottom: 14px; padding-bottom: 2px; }
+.iti-route::-webkit-scrollbar { display: none; }
+.iti-pill { background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); color: #e2e8f0; border-radius: 99px; padding: 5px 12px; font-size: 11px; font-weight: 750; white-space: nowrap; }
+.iti-countdown { background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; border-radius: 12px; padding: 8px 12px; font-size: 12px; font-weight: 750; display: inline-flex; align-items: center; gap: 6px; }
+
+.day-filter-scroll { display: flex; gap: 8px; margin-bottom: 12px; overflow-x: auto; scrollbar-width: thin; padding: 2px 0 6px 0; cursor: grab; user-select: none; }
+.day-filter-scroll::-webkit-scrollbar, .cat-filter-scroll::-webkit-scrollbar, .iti-route::-webkit-scrollbar, .tabs::-webkit-scrollbar { height: 5px; }
+.day-filter-scroll::-webkit-scrollbar-thumb, .cat-filter-scroll::-webkit-scrollbar-thumb, .iti-route::-webkit-scrollbar-thumb, .tabs::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+.day-filter-scroll:active, .cat-filter-scroll:active, .iti-route:active, .tabs:active { cursor: grabbing; }
+.day-btn { flex: 0 0 auto; background: #e8ebef; color: #475569; border: 0; border-radius: 12px; padding: 8px 14px; font-size: 12px; font-weight: 750; cursor: pointer; transition: all 0.15s ease; }
+.day-btn.active { background: #0f172a; color: #fff; box-shadow: 0 2px 8px #00000020; }
+
+.cat-filter-scroll { display: flex; gap: 6px; margin-bottom: 16px; overflow-x: auto; scrollbar-width: thin; padding-bottom: 4px; cursor: grab; user-select: none; }
+.cat-btn { flex: 0 0 auto; background: #fff; border: 1px solid #e2e8f0; color: #64748b; border-radius: 99px; padding: 6px 12px; font-size: 12px; font-weight: 700; cursor: pointer; }
+.cat-btn.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+
+.day-card { background: #fff; border: 1px solid #e1e5ea; border-radius: 20px; padding: 18px; margin-bottom: 14px; box-shadow: 0 4px 20px #00000008; position: relative; }
+.day-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; }
+.day-badge { background: #eff6ff; color: #2563eb; font-weight: 850; font-size: 12px; padding: 4px 10px; border-radius: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.day-title { font-size: 17px; font-weight: 850; color: #0f172a; margin-top: 4px; }
+.day-sub { font-size: 12px; color: #64748b; font-weight: 600; }
+
+.timeline-list { display: flex; flex-direction: column; gap: 14px; position: relative; padding-left: 14px; border-left: 2px dashed #cbd5e1; margin-left: 6px; margin-top: 10px; }
+.timeline-item { position: relative; padding-left: 10px; }
+.t-dot { position: absolute; left: -21px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #3b82f6; border: 2px solid #fff; box-shadow: 0 0 0 2px #3b82f6; }
+.t-time { font-size: 11px; font-weight: 800; color: #2563eb; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2px; display: inline-flex; align-items: center; gap: 4px; }
+.t-name { font-size: 14px; font-weight: 750; color: #1e293b; line-height: 1.35; }
+.t-desc { font-size: 12px; color: #475569; margin-top: 3px; line-height: 1.45; }
+.t-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.t-tag { background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
+.t-tag.price { background: #fef3c7; color: #92400e; }
+.t-tag.note { background: #fef2f2; color: #991b1b; }
+
+.map-btn { display: inline-flex; align-items: center; gap: 5px; background: #0284c7; color: #fff; text-decoration: none; font-size: 11px; font-weight: 750; padding: 5px 10px; border-radius: 8px; margin-top: 6px; }
+.map-btn:hover { background: #0369a1; }
+
+.t-details-list { margin: 6px 0 0 0; padding-left: 18px; font-size: 12px; color: #334155; line-height: 1.5; }
+.t-details-list li { margin-bottom: 4px; }
+.t-alert-box { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; border-radius: 10px; padding: 8px 12px; font-size: 12px; font-weight: 600; margin-top: 6px; line-height: 1.45; }
 </style>
+
+
 </head>
 <body>
 <main class="app">
@@ -112,6 +158,7 @@ details.category-card[open] summary .arrow{transform:rotate(180deg)}
 <button id="worldTimeTab" class="tab">🕐 Time</button>
 <button id="phrasesTab" class="tab">🗣️ Phrases</button>
 <button id="guideTab" class="tab">💡 Info</button>
+<button id="itineraryTab" class="tab">📅 Itinerary</button>
 </nav>
 
 <section id="converter">
@@ -395,6 +442,710 @@ details.category-card[open] summary .arrow{transform:rotate(180deg)}
 </section>
 </section>
 
+<section id="itinerary" class="hidden">
+<section class="iti-hero">
+  <div class="iti-hero-title">🇻🇳 Vietnam Trip 2026</div>
+  <div class="iti-hero-date">October 1 – October 9, 2026 • 9 Days Complete Journey</div>
+  <div class="iti-route">
+    <span class="iti-pill">📍 Hanoi</span>
+    <span class="iti-pill">➔ Ninh Binh</span>
+    <span class="iti-pill">➔ Sapa</span>
+    <span class="iti-pill">➔ Fansipan</span>
+    <span class="iti-pill">➔ Halong Bay</span>
+    <span class="iti-pill">➔ Singapore</span>
+  </div>
+  <div class="iti-countdown" id="itiCountdown">⏳ Calculating countdown...</div>
+</section>
+
+<!-- Filter Navigation -->
+<div class="day-filter-scroll">
+  <button class="day-btn active" data-day="all">All Days</button>
+  <button class="day-btn" data-day="1">Oct 1 • Kerala ➔ Hanoi</button>
+  <button class="day-btn" data-day="2">Oct 2 • Hanoi Old Qtr</button>
+  <button class="day-btn" data-day="3">Oct 3 • Ninh Binh</button>
+  <button class="day-btn" data-day="4">Oct 4 • Sapa Trek</button>
+  <button class="day-btn" data-day="5">Oct 5 • Fansipan</button>
+  <button class="day-btn" data-day="6">Oct 6 • Halong Bay</button>
+  <button class="day-btn" data-day="7">Oct 7 • Hanoi Shopping</button>
+  <button class="day-btn" data-day="8">Oct 8 • Fly Home</button>
+  <button class="day-btn" data-day="9">Oct 9 • Ernakulam ➔ TVM</button>
+</div>
+
+<div class="cat-filter-scroll">
+  <button class="cat-btn active" data-cat="all">All</button>
+  <button class="cat-btn" data-cat="transit">✈️ Transit</button>
+  <button class="cat-btn" data-cat="sight">📍 Sights</button>
+  <button class="cat-btn" data-cat="food">🍜 Food & Cafes</button>
+  <button class="cat-btn" data-cat="stay">🏨 Stays</button>
+</div>
+
+<!-- MASTER FOOD & CAFE DIRECTORY -->
+<div class="day-card master-food-card" data-category="food">
+  <div class="day-card-header">
+    <div>
+      <span class="day-badge" style="background:#fef3c7;color:#92400e">🍜 MASTER FOOD & CAFE DIRECTORY</span>
+      <div class="day-title">All City Dining & Coffee Highlights</div>
+      <div class="day-sub">Complete list of restaurants, cafes & must-try dishes for Vietnam</div>
+    </div>
+  </div>
+  
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:8px">
+    <!-- HANOI -->
+    <div style="background:#fff1f2;border:1px solid #fecdd3;border-radius:14px;padding:12px">
+      <div style="font-weight:850;color:#9f1239;font-size:14px;margin-bottom:6px">🏙️ Hanoi Dishes, Restaurants & Cafes</div>
+      <div style="font-size:12px;color:#881337;line-height:1.45;margin-bottom:8px">
+        <strong>Must-Try Dishes:</strong> Phở, Bún Chả, Bánh Mì, Egg Coffee, Coconut Coffee, Bánh Cuốn, Nem Rán / Spring Rolls, Xôi, Scallops with Cheese, Bún Bò Huế, Cơm Gà, Mì Quảng.
+      </div>
+      <div class="t-tags">
+        <span class="t-tag">Hong Hoai’s Restaurant</span>
+        <span class="t-tag">Hanoi Corner Restaurant</span>
+        <span class="t-tag">7-Eleven</span>
+        <span class="t-tag">MẸT Vietnamese & Vegetarian Met 2</span>
+        <span class="t-tag">Pizza 4P's Trang Tien</span>
+        <span class="t-tag">Pizza 4P's Ben Thanh</span>
+        <span class="t-tag">The East (Michelin Star, late night near Railway Cafe)</span>
+        <span class="t-tag">King Roti Hàng Gai</span>
+        <span class="t-tag">Bún Chả Đắc Kim</span>
+        <span class="t-tag">Banh Mi Pho Hue</span>
+        <span class="t-tag">Bia Hoi Doi Moi</span>
+        <span class="t-tag">Nem Nướng Nha Trang Quế Hoa</span>
+        <span class="t-tag">Phở Bưng Hàng Trống</span>
+        <span class="t-tag">Bun Cha Ta Hanoi</span>
+        <span class="t-tag">Maison Marou (Chocolates)</span>
+        <span class="t-tag">La Creme Ben Thanh (Ice Cream)</span>
+        <span class="t-tag">Cafe Giang (Egg Coffee)</span>
+        <span class="t-tag">Hidden Gem Cafe</span>
+        <span class="t-tag">C.O.C Legacy Specialty Coffee</span>
+        <span class="t-tag">Always Harry Potter Cafe</span>
+        <span class="t-tag">Railway Cafe</span>
+      </div>
+    </div>
+    
+    <!-- NINH BINH -->
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:14px;padding:12px">
+      <div style="font-weight:850;color:#166534;font-size:14px;margin-bottom:6px">🌿 Ninh Binh Restaurants</div>
+      <div style="font-size:12px;color:#14532d;line-height:1.45;margin-bottom:8px">
+        <strong>Trang An & Specialities:</strong> Dê Nướng (Grilled Mountain Goat), Cơm Cháy (Crispy Rice Crust), Miến Lươn (Eel Glass Noodles), Ốc Núi (Mountain Snails).
+      </div>
+      <div style="font-size:11px;font-weight:800;color:#166534;margin:6px 0 3px">📍 Near Trang An:</div>
+      <div class="t-tags">
+        <span class="t-tag">NHÀ HÀNG PHỐ XƯA (Ẩm thực tràng an)</span>
+        <span class="t-tag">Trang An Riverside Garden Restaurant</span>
+        <span class="t-tag">Nhà hàng Xuân Thắng</span>
+      </div>
+      <div style="font-size:11px;font-weight:800;color:#166534;margin:8px 0 3px">📍 Near Hoa Lu:</div>
+      <div class="t-tags">
+        <span class="t-tag">Cơm Vị An Ninh Bình</span>
+        <span class="t-tag">PIZZA SEN NINH BÌNH</span>
+        <span class="t-tag">Phở An (Pho Restaurant)</span>
+        <span class="t-tag">Nhà Hàng Chay Hoa Lư Vegan (LOVING HUT)</span>
+        <span class="t-tag">Nhà Hàng Cơm Niêu Việt Xưa</span>
+      </div>
+      <div style="font-size:11px;font-weight:800;color:#166534;margin:8px 0 3px">📍 Near HK Busline (Departure Location):</div>
+      <div class="t-tags">
+        <span class="t-tag" style="background:#dcfce7;color:#15803d">Hải Nam Restaurant</span>
+        <span class="t-tag" style="background:#dcfce7;color:#15803d">An Restaurant - Coffee (Restaurant & Bar Ninh Binh)</span>
+      </div>
+    </div>
+    
+    <!-- SAPA -->
+    <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:14px;padding:12px">
+      <div style="font-weight:850;color:#075985;font-size:14px;margin-bottom:6px">🏔️ Sapa & Fansipan Restaurants & Cafes</div>
+      <div style="font-size:12px;color:#0c4a6e;line-height:1.45;margin-bottom:8px">
+        <strong>Sapa Specialities:</strong> Lẩu Cá Hồi (Salmon Hotpot), Lợn Cắp Nách (Roasted Free-Range Pork), Cơm Lam (Bamboo Sticky Rice), Gà Đen (Black Chicken).
+      </div>
+      <div class="t-tags">
+        <span class="t-tag">The Mist Sapa</span>
+        <span class="t-tag">Cafe Bao</span>
+        <span class="t-tag">Sapa Centre Cafe Restaurant</span>
+        <span class="t-tag">Sapa Emotion Restaurant</span>
+        <span class="t-tag">A Beo Sapa Restaurant</span>
+        <span class="t-tag">Sapa Rosemary Restaurant</span>
+        <span class="t-tag">Cafe 1690 (2 km from Moana)</span>
+        <span class="t-tag">Chicago Pizza Sapa</span>
+        <span class="t-tag">Little Sapa Restaurant</span>
+        <span class="t-tag">Sapa Big Tree Restaurant</span>
+        <span class="t-tag">Chợ Tình Quán (63D Fansipan)</span>
+        <span class="t-tag">Horizon Coffee (Cat Cat Village)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 1 -->
+<div class="day-card" data-day-num="1">
+  <div class="day-card-header">
+    <div>
+      <span class="day-badge">Day 1 • Oct 1</span>
+      <div class="day-title">Kerala ➔ Singapore ➔ Hanoi</div>
+      <div class="day-sub">Transit & Travel Day</div>
+    </div>
+  </div>
+  <div class="timeline-list">
+    <div class="timeline-item" data-category="stay">
+      <div class="t-dot"></div>
+      <div class="t-time">🏨 DAYTIME & NIGHT STAY</div>
+      <div class="t-name">Annmary's Flat (Daytime WFH) ➔ Overnight Flight Transit</div>
+      <div class="t-desc">Work from flat in Ernakulam (19 km to Kochi COK Airport). Night: Flight transit COK ➔ SIN ➔ HAN.</div>
+    </div>
+    <div class="timeline-item" data-category="transit">
+      <div class="t-dot"></div>
+      <div class="t-time">🚆 12:25 AM – 4:45 AM</div>
+      <div class="t-name">Train: Trivandrum ➔ Ernakulam Junction</div>
+      <ul class="t-details-list">
+        <li>🚆 Train: 12:25 AM → 4:45 AM</li>
+        <li>📍 Trivandrum → Ernakulam Junction</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="transit">
+      <div class="t-dot"></div>
+      <div class="t-time">💻 Daytime WFH</div>
+      <div class="t-name">WFH at Annmary's Flat</div>
+      <ul class="t-details-list">
+        <li>WFH at Annmary’s flat</li>
+        <li>📍 19 km to Kochi Airport</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="transit">
+      <div class="t-dot"></div>
+      <div class="t-time">✈️ 7:30 PM Reach Airport</div>
+      <div class="t-name">Flight 1: Kochi (COK) ➔ Singapore (SIN)</div>
+      <ul class="t-details-list">
+        <li>Reach airport at 7:30–8:00 PM</li>
+        <li>✈️ Departure: 10:50 PM, Oct 1</li>
+        <li>🇸🇬 Arrive Singapore: 6:15 AM, Oct 2</li>
+        <li>⏱️ Layover: ~2 hr 45 min</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="transit">
+      <div class="t-dot"></div>
+      <div class="t-time">✈️ 9:00 AM – 11:30 AM</div>
+      <div class="t-name">Flight 2: Singapore (SIN) ➔ Hanoi (HAN)</div>
+      <ul class="t-details-list">
+        <li>✈️ 9:00 AM → 11:30 AM</li>
+        <li>🇻🇳 Arrive Hanoi: 11:30 AM, Oct 2</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 2 -->
+<div class="day-card" data-day-num="2">
+  <div class="day-card-header">
+    <div>
+      <span class="day-badge">Day 2 • Oct 2</span>
+      <div class="day-title">Arrival in Hanoi & Old Quarter</div>
+      <div class="day-sub">Airport setup, Hanoi landmarks & Train Street</div>
+    </div>
+  </div>
+  <div class="timeline-list">
+    <div class="timeline-item" data-category="stay">
+      <div class="t-dot"></div>
+      <div class="t-time">🏨 ACCOMMODATION / STAY</div>
+      <div class="t-name">Hanoi Airbnb Check-in</div>
+      <div class="t-desc">Full day in Hanoi. Have lunch and then check in at Airbnb (French Quarter). Store main luggage here.</div>
+      <a href="https://maps.app.goo.gl/MJdeM1kg5VVrbUut5?g_st=aw" target="_blank" class="map-btn">📍 Open Airbnb Map</a>
+    </div>
+    <div class="timeline-item" data-category="transit">
+      <div class="t-dot"></div>
+      <div class="t-time">✈️ Arrival & Essentials</div>
+      <div class="t-name">Airport VND Exchange & Viettel eSIM</div>
+      <ul class="t-details-list">
+        <li>💵 Exchange a few VND from the airport</li>
+        <li>📱 Use Viettel eSIM starting from the airport (💰 ₹1,050 | 📶 5 GB/day | 📅 7 days)</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="sight">
+      <div class="t-dot"></div>
+      <div class="t-time">🏛️ Explore Hanoi</div>
+      <div class="t-name">Hanoi Old Quarter & Landmarks</div>
+      <ul class="t-details-list">
+        <li>🏙️ Explore Hanoi Old Quarter</li>
+        <li>🌊 Hoàn Kiếm Lake</li>
+        <li>⛪ St. Joseph’s Cathedral</li>
+        <li>🛕 Ngoc Son Temple</li>
+        <li>🌉 Red Huc Bridge</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="food">
+      <div class="t-dot"></div>
+      <div class="t-time">🚂 Train Street & Railway Cafe</div>
+      <div class="t-name">Hanoi Train Street Timings & Railway Cafe</div>
+      <div class="t-alert-box">
+        <strong>Weekday Evening Train Timings:</strong><br>
+        • 07:50 PM<br>
+        • 09:15 PM<br>
+        • 09:30 PM<br>
+        • 10:00 PM<br>
+        ⏰ <em>Reach 30 minutes prior!</em>
+      </div>
+      <div class="t-desc" style="margin-top:6px"><strong>☕ Railway Cafe Try:</strong> Egg Coffee, Coconut Coffee</div>
+    </div>
+    <div class="timeline-item" data-category="sight">
+      <div class="t-dot"></div>
+      <div class="t-time">🌃 Evening Exploration</div>
+      <div class="t-name">Old Quarter & French Quarter</div>
+      <ul class="t-details-list">
+        <li>Old Quarter streets</li>
+        <li>French Quarter — near Airbnb</li>
+        <li>Evening exploration</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="food">
+      <div class="t-dot"></div>
+      <div class="t-time">🍜 Must Try & Restaurants — Hanoi</div>
+      <div class="t-name">Hanoi Foods & Recommended Places</div>
+      <ul class="t-details-list">
+        <li><strong>Must Try:</strong> Phở, Bún Chả, Bánh Mì, Egg Coffee, Coconut Coffee, Bánh Cuốn, Nem Rán / Spring Rolls, Xôi, Scallops with cheese, Bún Bò Huế, Cơm Gà, Mì Quảng.</li>
+        <li><strong>Restaurants & Cafes:</strong> Hong Hoai’s Restaurant, Hanoi Corner Restaurant, 7-Eleven, MẸT Vietnamese Restaurant & Vegetarian Met 2, Pizza 4P (Trang Tien & Ben Thanh), The East (near Railway Cafe, late night, Michelin star), King Roti Hàng Gai, Bún Chả Đắc Kim, Banh Mi Pho Hue, Bia Hoi Doi Moi, Nem Nướng Nha Trang Quế Hoa, Phở Bưng Hàng Trống, Bun Cha Ta Hanoi, Maison Marou (chocolates), La Creme Ben Thanh (ice cream), Cafe Giang (Egg Coffee), Hidden Gem Cafe, C.O.C Legacy Specialty Coffee, Always Harry Potter-style Cafe.</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="sight">
+      <div class="t-dot"></div>
+      <div class="t-time">🎒 Travel Notes</div>
+      <div class="t-name">Luggage & Transport Notes</div>
+      <ul class="t-details-list">
+        <li>💵 Keep some small VND notes with you.</li>
+        <li>🧳 Keep the larger luggage in Hanoi, since you come back only on Oct 6. Keep dress/clothes for Sapa + Fansipan + Ninh Binh day.</li>
+        <li>🚕 Use Grab for getting around when walking isn’t convenient.</li>
+        <li>💡 Useful phrase: <em>"Không cần"</em> (khom kan) = "do not need" / "no need".</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 3 -->
+<div class="day-card" data-day-num="3">
+  <div class="day-card-header">
+    <div>
+      <span class="day-badge">Day 3 • Oct 3</span>
+      <div class="day-title">Hanoi ➔ Ninh Binh ➔ Overnight Bus to Sapa</div>
+      <div class="day-sub">Trang An Boat, Bai Dinh Pagoda & Mua Cave</div>
+    </div>
+  </div>
+  <div class="timeline-list">
+    <div class="timeline-item" data-category="stay">
+      <div class="t-dot"></div>
+      <div class="t-time">🏨 ACCOMMODATION / STAY</div>
+      <div class="t-name">Overnight Sleeper Bus: Ninh Binh ➔ Sapa</div>
+      <ul class="t-details-list">
+        <li>🚌 Departure: 9:30 PM</li>
+        <li>📍 Location: 2A đường 27/7, Hoa Lư, Ninh Bình 430000, Vietnam</li>
+        <li>🚌 Overnight sleeper bus to Sapa</li>
+      </ul>
+      <a href="https://maps.app.goo.gl/S7hEeHFs6E8NrRrq7?g_st=ic" target="_blank" class="map-btn">📍 Open Bus Location Map</a>
+    </div>
+    <div class="timeline-item" data-category="transit">
+      <div class="t-dot"></div>
+      <div class="t-time">🌅 Morning Travel (6:25 AM)</div>
+      <div class="t-name">Bus: Hanoi ➔ Ninh Binh</div>
+      <ul class="t-details-list">
+        <li>🚌 Bus: 6:25 AM</li>
+        <li>📍 Pickup: 160 Tran Quang Khai, Hanoi</li>
+      </ul>
+      <a href="https://maps.app.goo.gl/Py4gpEt9EA6848466?g_st=ic" target="_blank" class="map-btn">📍 Bus Pickup Map</a>
+    </div>
+    <div class="timeline-item" data-category="sight">
+      <div class="t-dot"></div>
+      <div class="t-time">🌿 Ninh Binh Sightseeing Notes</div>
+      <div class="t-name">Arrival & Getting Around</div>
+      <ul class="t-details-list">
+        <li>🚕 Use Grab/local transport around the area.</li>
+        <li>📍 Bus drop-off at Trang An — need to check luggage storage if needed.</li>
+        <li>🎟️ Take ticket and then have breakfast at Trang An.</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="sight">
+      <div class="t-dot"></div>
+      <div class="t-time">🛶 Trang An Boat Ride</div>
+      <div class="t-name">Route 2 Scenic Boat Tour</div>
+      <ul class="t-details-list">
+        <li>🛶 Choose Route 2 for a mix of all</li>
+        <li>⏱️ 2–3 hrs</li>
+        <li>👥 4 max/boat (Options: 3 + 1 stranger OR Whole private boat; 🚣 3 boats in total)</li>
+        <li>💰 ~₹1,400/head for full private boat</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="sight">
+      <div class="t-dot"></div>
+      <div class="t-time">🏯 Bai Dinh Pagoda</div>
+      <div class="t-name">Pagoda & Panoramic Stupa (14 km from Trang An)</div>
+      <ul class="t-details-list">
+        <li>🎟️ Entry: Free</li>
+        <li>🚐 Shuttle car — round trip: ₹205</li>
+        <li>🗼 Bao Thap Stupa & 🌄 Panoramic view</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="sight">
+      <div class="t-dot"></div>
+      <div class="t-time">🌄 Mua Cave / Viewpoint</div>
+      <div class="t-name">Dragon Viewpoint Peak (18 km from Bai Dinh)</div>
+      <ul class="t-details-list">
+        <li>🌄 Mua Cave / viewpoint</li>
+        <li>💰 ₹370</li>
+        <li>🏘️ Hoa Lu Old Town (7.3 km from Mua Cave) — Visit if time</li>
+        <li>🚌 HK Busline — bus pickup (3.1 km from Hoa Lu)</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="food">
+      <div class="t-dot"></div>
+      <div class="t-time">🍽️ Restaurants — Ninh Binh</div>
+      <div class="t-name">Near Trang An, Hoa Lu & HK Busline</div>
+      <ul class="t-details-list">
+        <li><strong>Near Trang An:</strong> NHÀ HÀNG PHỐ XƯA (Ẩm thực tràng an), Trang An Riverside Garden Restaurant, Nhà hàng Xuân Thắng.</li>
+        <li><strong>Near Hoa Lu:</strong> Cơm Vị An Ninh Bình, PIZZA SEN NINH BÌNH, Phở An (Pho Restaurant), Nhà Hàng Chay Hoa Lư Vegan Restaurant (LOVING HUT), Nhà Hàng Cơm Niêu Việt Xưa.</li>
+        <li><strong>Near HK Busline:</strong> Hải Nam Restaurant, An Restaurant - Coffee (Restaurant & Bar Ninh Binh).</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 4 -->
+<div class="day-card" data-day-num="4">
+  <div class="day-card-header">
+    <div>
+      <span class="day-badge">Day 4 • Oct 4</span>
+      <div class="day-title">Sapa Arrival & Cat Cat Village Trek</div>
+      <div class="day-sub">Fresh up, Hmong culture & Sapa town</div>
+    </div>
+  </div>
+  <div class="timeline-list">
+    <div class="timeline-item" data-category="stay">
+      <div class="t-dot"></div>
+      <div class="t-time">🏨 ACCOMMODATION / STAY — SAPA</div>
+      <div class="t-name">Sapa Hub Hostel Check-in & Fresh Up</div>
+      <ul class="t-details-list">
+        <li>🌅 Arrive in Sapa after overnight bus: 5:00 AM</li>
+        <li>🏠 Early check-in if available</li>
+        <li>🚿 Take room for fresh-up in morning if needed</li>
+        <li>🍳 Breakfast at Sapa town</li>
+        <li>🧳 Keep luggage at hostel during Cat Cat Village trek & Sapa exploration</li>
+      </ul>
+      <a href="https://maps.app.goo.gl/ds9jpLbLQRdNUrQU8?g_st=ic" target="_blank" class="map-btn" style="background:#16a34a">📍 Open Sapa Hub Hostel Map</a>
+    </div>
+    <div class="timeline-item" data-category="sight">
+      <div class="t-dot"></div>
+      <div class="t-time">🏘️ Morning Trek</div>
+      <div class="t-name">Cat Cat Village & Surrounding Mountain Scenery</div>
+      <ul class="t-details-list">
+        <li>🛵 Sapa → Cat Cat Village entrance by motorbike taxi</li>
+        <li>🚶 Walk down the stone-paved village path</li>
+        <li>🧵 Hmong handicrafts, weaving & traditional houses</li>
+        <li>🌉 Si Bridge over the Muong Hoa stream</li>
+        <li>💦 Tien Sa Waterfall</li>
+        <li>⚡ Old French-era hydropower plant</li>
+        <li>🌲 Treehouse / panoramic viewpoints</li>
+        <li>🎭 Cat Cat Cultural Center & traditional performances</li>
+        <li>🛵 Motorbike taxi back uphill to Sapa</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="sight">
+      <div class="t-dot"></div>
+      <div class="t-time">🏙️ Explore Sapa Town</div>
+      <div class="t-name">Town Landmarks & Night Market</div>
+      <ul class="t-details-list">
+        <li>⛪ Stone Church</li>
+        <li>🌊 Sapa Lake Square - sunset</li>
+        <li>📸 Moana Sapa (📍 2 km from hotel | ⚠️ Not worth it if foggy)</li>
+        <li>🌙 Sapa Night Market</li>
+        <li>☕ Relax and explore the town</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="food">
+      <div class="t-dot"></div>
+      <div class="t-time">☕ Cafés & Restaurants — Sapa</div>
+      <div class="t-name">Sapa Dining Highlights</div>
+      <ul class="t-details-list">
+        <li>The Mist Sapa, Cafe Bao, Sapa Centre Cafe Restaurant, Sapa Emotion Restaurant, A Beo Sapa Restaurant, Sapa Rosemary Restaurant, Cafe 1690 (2 km from Moana Sapa), Chicago Pizza Sapa, Little Sapa Restaurant, Sapa Big Tree Restaurant.</li>
+        <li><strong>Fansipan / Cat Cat spots:</strong> Chợ Tình Quán (📍 63D Fansipan, Sapa), Horizon Coffee (Cat Cat Village).</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 5 -->
+<div class="day-card" data-day-num="5">
+  <div class="day-card-header">
+    <div>
+      <span class="day-badge">Day 5 • Oct 5</span>
+      <div class="day-title">Fansipan Peak & Return to Hanoi</div>
+      <div class="day-sub">Roof of Indochina & late night arrival in Hanoi</div>
+    </div>
+  </div>
+  <div class="timeline-list">
+    <div class="timeline-item" data-category="stay">
+      <div class="t-dot"></div>
+      <div class="t-time">🏨 ACCOMMODATION / STAY — SAPA</div>
+      <div class="t-name">Sapa Hub Hostel (Morning Checkout & Luggage Store)</div>
+      <ul class="t-details-list">
+        <li>🍳 Breakfast near hostel</li>
+        <li>🏠 Checkout from Sapa Hub Hostel</li>
+        <li>🧳 Keep luggage at hostel or take room to fresh up before evening bus</li>
+      </ul>
+      <a href="https://maps.app.goo.gl/ds9jpLbLQRdNUrQU8?g_st=ic" target="_blank" class="map-btn" style="background:#16a34a">📍 Open Sapa Hub Hostel Map</a>
+    </div>
+    <div class="timeline-item" data-category="sight">
+      <div class="t-dot"></div>
+      <div class="t-time">🚠 FANSIPAN CABLE CAR & PEAK</div>
+      <div class="t-name">Full Route & Timings</div>
+      <div class="t-alert-box">
+        <strong>⏰ Cable Car Timings:</strong><br>
+        • 🚠 Cable car up: 8:00 AM – 2:30 PM<br>
+        • 🚠 Last cable car back to Sapa: 4:00 PM<br>
+        • 🎟️ Ticketing starts around 7:30 AM
+      </div>
+      <div style="font-weight:750;font-size:12px;color:#1e293b;margin-top:8px">Route Steps:</div>
+      <ul class="t-details-list">
+        <li>Sapa → Sun Plaza (⏰ Reach Sun Plaza at 8:30 AM)</li>
+        <li>🚞 Muong Hoa Funicular</li>
+        <li>🚉 Hoàng Liên Station</li>
+        <li>🚠 Fansipan Cable Car</li>
+        <li>🏔️ Upper Station</li>
+        <li>🚞 Optional Funicular toward Summit</li>
+        <li>🏔️ Fansipan Summit</li>
+        <li>🌄 Sun World Fansipan Legend area</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="food">
+      <div class="t-dot"></div>
+      <div class="t-time">☕ Cafés & Restaurants — Sapa</div>
+      <div class="t-name">Sapa Dining Highlights</div>
+      <ul class="t-details-list">
+        <li>The Mist Sapa, Cafe Bao, Sapa Centre Cafe Restaurant, Sapa Emotion Restaurant, A Beo Sapa Restaurant, Sapa Rosemary Restaurant, Cafe 1690, Chicago Pizza Sapa, Little Sapa Restaurant, Sapa Big Tree Restaurant.</li>
+        <li><strong>Fansipan / Cat Cat spots:</strong> Chợ Tình Quán (📍 63D Fansipan, Sapa), Horizon Coffee (Cat Cat Village).</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="transit">
+      <div class="t-dot"></div>
+      <div class="t-time">🚌 Bus: Sapa ➔ Hanoi</div>
+      <div class="t-name">6:00 PM Sleeper Bus Departure</div>
+      <ul class="t-details-list">
+        <li>🚌 Departure: 6:00 PM</li>
+        <li>🕦 Arrive Hanoi: Late night — 11:30 PM–12:30 AM</li>
+        <li>🌙 Oct 5 night is spent travelling back to Hanoi</li>
+      </ul>
+      <a href="https://maps.app.goo.gl/hqvXV1Pm5i3VJzd7A?g_st=ic" target="_blank" class="map-btn">📍 Boarding Location Map</a>
+    </div>
+    <div class="timeline-item" data-category="stay">
+      <div class="t-dot"></div>
+      <div class="t-time">🏨 MIDNIGHT ACCOMMODATION — HANOI</div>
+      <div class="t-name">Hanoi Traveller House Check-in</div>
+      <div class="t-desc">Arrive in Hanoi late night (~11:30 PM–12:30 AM). Check in for overnight stay.</div>
+      <a href="https://maps.app.goo.gl/TCYtCEf71ghjwA2q6?g_st=ic" target="_blank" class="map-btn">📍 Open Hostel Map</a>
+    </div>
+    <div class="timeline-item" data-category="food">
+      <div class="t-dot"></div>
+      <div class="t-time">🍜 Late Night Food & Cafes — Hanoi</div>
+      <div class="t-name">Hanoi Late Night Spots & Food Highlights</div>
+      <ul class="t-details-list">
+        <li><strong>Late Night Dining:</strong> The East (near Railway Cafe, Michelin star, open late), 7-Eleven snacks, local Phở stalls, Egg Coffee at Cafe Giang.</li>
+        <li><strong>Other Recommended Hanoi Spots:</strong> Hong Hoai’s, Hanoi Corner, MẸT Vegetarian Met 2, Pizza 4P's, King Roti, Bún Chả Đắc Kim, Bun Cha Ta Hanoi.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+
+<!-- DAY 6 -->
+<div class="day-card" data-day-num="6">
+  <div class="day-card-header">
+    <div>
+      <span class="day-badge">Day 6 • Oct 6</span>
+      <div class="day-title">Halong Bay Day Cruise</div>
+      <div class="day-sub">Caves, kayaking & Ti Top Island</div>
+    </div>
+  </div>
+  <div class="timeline-list">
+    <div class="timeline-item" data-category="food">
+      <div class="t-dot"></div>
+      <div class="t-time">🍳 Morning Breakfast (Before 7:30 AM)</div>
+      <div class="t-name">Hanoi Pho Options</div>
+      <ul class="t-details-list">
+        <li>🍜 Phở Thìn</li>
+        <li>🍜 Phở Lý Quốc Sư</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="transit">
+      <div class="t-dot"></div>
+      <div class="t-time">⏰ 7:45 AM Pickup</div>
+      <div class="t-name">Halong Bay Transfer Pickup</div>
+      <ul class="t-details-list">
+        <li>⏰ 7:45 AM Pickup</li>
+        <li>📍 Start at Hanoi Opera House</li>
+        <li>🏨 Hotel pickup as well — need to confirm</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="sight">
+      <div class="t-dot"></div>
+      <div class="t-time">🌊 Halong Bay Day Cruise</div>
+      <div class="t-name">Cruise & Island Activities</div>
+      <ul class="t-details-list">
+        <li>🛳️ Tuan Chau Marina — 11:30 AM</li>
+        <li>🍴 Lunch onboard</li>
+        <li>🪨 Sung Sot Cave</li>
+        <li>🛶 Luon Cave</li>
+        <li>🏝️ Ti Top Island</li>
+        <li>🚢 Cruise activities</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="stay">
+      <div class="t-dot"></div>
+      <div class="t-time">🏨 ACCOMMODATION / STAY</div>
+      <div class="t-name">Check-in to Hanoi Airbnb & Night Stay</div>
+      <ul class="t-details-list">
+        <li>🚢 Return to Hanoi after cruise — board bus around 6:00 PM</li>
+        <li>🏠 Check in to Airbnb (French Quarter) — around 9:30 PM</li>
+        <li>🍽️ Night stay in Hanoi Airbnb</li>
+      </ul>
+      <a href="https://maps.app.goo.gl/Ha8NEVUQt9DE2GYi9" target="_blank" class="map-btn">📍 Open Airbnb Map</a>
+    </div>
+    <div class="timeline-item" data-category="food">
+      <div class="t-dot"></div>
+      <div class="t-time">🍜 Recommended Restaurants & Cafes — Hanoi</div>
+      <div class="t-name">Hanoi Dining Highlights</div>
+      <ul class="t-details-list">
+        <li><strong>Must Try:</strong> Phở, Bún Chả, Bánh Mì, Egg Coffee, Coconut Coffee, Bánh Cuốn, Nem Rán / Spring Rolls, Xôi, Scallops with cheese, Bún Bò Huế, Cơm Gà, Mì Quảng.</li>
+        <li><strong>Restaurants & Cafes:</strong> Hong Hoai’s Restaurant, Hanoi Corner Restaurant, 7-Eleven, MẸT Vietnamese Restaurant & Vegetarian Met 2, Pizza 4P (Trang Tien & Ben Thanh), The East (near Railway Cafe, late night, Michelin star), King Roti Hàng Gai, Bún Chả Đắc Kim, Banh Mi Pho Hue, Bia Hoi Doi Moi, Nem Nướng Nha Trang Quế Hoa, Phở Bưng Hàng Trống, Bun Cha Ta Hanoi, Maison Marou (chocolates), La Creme Ben Thanh (ice cream), Cafe Giang (Egg Coffee), Hidden Gem Cafe, C.O.C Legacy Specialty Coffee, Always Harry Potter-style Cafe.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 7 -->
+<div class="day-card" data-day-num="7">
+  <div class="day-card-header">
+    <div>
+      <span class="day-badge">Day 7 • Oct 7</span>
+      <div class="day-title">Hanoi Old Quarter Shopping & Grand World</div>
+      <div class="day-sub">Souvenir shopping walk & evening attraction</div>
+    </div>
+  </div>
+  <div class="timeline-list">
+    <div class="timeline-item" data-category="stay">
+      <div class="t-dot"></div>
+      <div class="t-time">🏨 ACCOMMODATION / STAY</div>
+      <div class="t-name">Hanoi Airbnb Final Night Stay</div>
+      <ul class="t-details-list">
+        <li>🏠 Hanoi Airbnb (French Quarter) — Final full night stay in Vietnam</li>
+        <li>🧳 Pack bags & prepare for departure tomorrow</li>
+      </ul>
+      <a href="https://maps.app.goo.gl/Ha8NEVUQt9DE2GYi9" target="_blank" class="map-btn">📍 Open Airbnb Map</a>
+    </div>
+    <div class="timeline-item" data-category="sight">
+      <div class="t-dot"></div>
+      <div class="t-time">🛍️ OLD QUARTER SHOPPING</div>
+      <div class="t-name">Shopping Route & Speciality Streets</div>
+      <div style="font-weight:750;font-size:12px;color:#1e293b;margin-top:4px">🚶 Shopping Route:</div>
+      <div style="font-size:12px;color:#475569;margin-bottom:6px">Hoàn Kiếm Lake ➔ Hàng Đào ➔ Hàng Ngang ➔ Hàng Đường ➔ Hàng Bồ ➔ Hàng Cân ➔ Lương Văn Can</div>
+      <ul class="t-details-list">
+        <li><strong>Hàng Gai</strong> → silk, clothes, souvenirs</li>
+        <li><strong>Hàng Ma</strong> → colourful Vietnamese decorations</li>
+        <li><strong>Dong Xuan Market & street</strong> → clothes, bags, souvenirs, snacks</li>
+        <li><strong>Hang Bong</strong> → ceramics, pottery, handicrafts</li>
+        <li>🍴 Lunch at Old Quarter</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="sight">
+      <div class="t-dot"></div>
+      <div class="t-time">🏛️ GRAND WORLD — HƯNG YEN</div>
+      <div class="t-name">Evening / Night Attraction</div>
+      <ul class="t-details-list">
+        <li>Grand World Hưng Yen</li>
+        <li>📍 20 km from Hoàn Kiếm Lake</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="food">
+      <div class="t-dot"></div>
+      <div class="t-time">🍜 Recommended Restaurants & Cafes — Hanoi</div>
+      <div class="t-name">Hanoi Dining Highlights</div>
+      <ul class="t-details-list">
+        <li><strong>Must Try:</strong> Phở, Bún Chả, Bánh Mì, Egg Coffee, Coconut Coffee, Bánh Cuốn, Nem Rán / Spring Rolls, Xôi, Scallops with cheese, Bún Bò Huế, Cơm Gà, Mì Quảng.</li>
+        <li><strong>Restaurants & Cafes:</strong> Hong Hoai’s Restaurant, Hanoi Corner Restaurant, 7-Eleven, MẸT Vietnamese Restaurant & Vegetarian Met 2, Pizza 4P (Trang Tien & Ben Thanh), The East (near Railway Cafe, late night, Michelin star), King Roti Hàng Gai, Bún Chả Đắc Kim, Banh Mi Pho Hue, Bia Hoi Doi Moi, Nem Nướng Nha Trang Quế Hoa, Phở Bưng Hàng Trống, Bun Cha Ta Hanoi, Maison Marou (chocolates), La Creme Ben Thanh (ice cream), Cafe Giang (Egg Coffee), Hidden Gem Cafe, C.O.C Legacy Specialty Coffee, Always Harry Potter-style Cafe.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 8 -->
+<div class="day-card" data-day-num="8">
+  <div class="day-card-header">
+    <div>
+      <span class="day-badge">Day 8 • Oct 8</span>
+      <div class="day-title">Hanoi ➔ Singapore ➔ Kochi</div>
+      <div class="day-sub">Return Flights to India</div>
+    </div>
+  </div>
+  <div class="timeline-list">
+    <div class="timeline-item" data-category="stay">
+      <div class="t-dot"></div>
+      <div class="t-time">🏨 ACCOMMODATION / CHECKOUT</div>
+      <div class="t-name">Hanoi Airbnb Checkout</div>
+      <ul class="t-details-list">
+        <li>🏠 Morning checkout from Hanoi Airbnb</li>
+        <li>🧳 Pack luggage for airport transfer (~10:00 AM Grab/Taxi to Airport)</li>
+      </ul>
+      <a href="https://maps.app.goo.gl/Ha8NEVUQt9DE2GYi9" target="_blank" class="map-btn">📍 Open Airbnb Map</a>
+    </div>
+    <div class="timeline-item" data-category="food">
+      <div class="t-dot"></div>
+      <div class="t-time">🍜 Recommended Restaurants & Cafes — Hanoi</div>
+      <div class="t-name">Hanoi Dining & Breakfast Options</div>
+      <ul class="t-details-list">
+        <li>Hong Hoai’s Restaurant, Hanoi Corner Restaurant, 7-Eleven, MẸT Vietnamese Met 2, Pizza 4P's, King Roti Hàng Gai, Bún Chả Đắc Kim, Banh Mi Pho Hue, Cafe Giang (Egg Coffee).</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="transit">
+      <div class="t-dot"></div>
+      <div class="t-time">✈️ Hanoi ➔ Singapore</div>
+      <div class="t-name">Flight 1: HAN ➔ SIN</div>
+      <ul class="t-details-list">
+        <li>✈️ 12:40 PM → 5:10 PM</li>
+        <li>🇸🇬 Arrive Singapore around 5:10 PM</li>
+        <li>⏱️ Singapore layover — 2 hr 50 min</li>
+      </ul>
+    </div>
+    <div class="timeline-item" data-category="transit">
+      <div class="t-dot"></div>
+      <div class="t-time">✈️ Singapore ➔ Kochi</div>
+      <div class="t-name">Flight 2: SIN ➔ COK</div>
+      <ul class="t-details-list">
+        <li>✈️ 8:00 PM → 10:00 PM</li>
+        <li>🇮🇳 Arrive Kochi around 10:00 PM</li>
+        <li>🏨 Night stay in Kochi (Annmary's Flat)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 9 -->
+<div class="day-card" data-day-num="9">
+  <div class="day-card-header">
+    <div>
+      <span class="day-badge">Day 9 • Oct 9</span>
+      <div class="day-title">Kochi ➔ Trivandrum</div>
+      <div class="day-sub">Journey Complete</div>
+    </div>
+  </div>
+  <div class="timeline-list">
+    <div class="timeline-item" data-category="stay">
+      <div class="t-dot"></div>
+      <div class="t-time">🏨 ACCOMMODATION / STAY</div>
+      <div class="t-name">Trivandrum Home (Arrival 8:30 AM)</div>
+      <div class="t-desc">Complete trip ends in Trivandrum on the morning of Oct 9.</div>
+    </div>
+    <div class="timeline-item" data-category="transit">
+      <div class="t-dot"></div>
+      <div class="t-time">🚆 3:05 AM – 8:30 AM</div>
+      <div class="t-name">Train: Ernakulam Town ➔ Trivandrum</div>
+      <div class="t-desc">Collect luggage from Annmary's flat and board early morning train to TVM. Arrive Trivandrum 8:30 AM. 🎉 Trip complete!</div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+
 <div class="info" style="text-align:center;margin-top:14px">Live exchange rate when online • last successful rate saved for offline use</div>
 </main>
 
@@ -489,17 +1240,102 @@ function updateClocks(){
  });
 }
 function openTab(id){
- const t=["converter","worldTime","phrases","guide"];
+ const t=["converter","worldTime","phrases","guide","itinerary"];
  t.forEach(x=>{
-  $(x).classList.toggle("hidden",x!==id);
-  $(x+"Tab").classList.toggle("active",x===id);
+  const el = $(x);
+  const tabEl = $(x+"Tab");
+  if(el) el.classList.toggle("hidden",x!==id);
+  if(tabEl) tabEl.classList.toggle("active",x===id);
  });
  if(id==="worldTime")updateClocks();
+ if(id==="itinerary")updateItiCountdown();
 }
 $("converterTab").onclick=()=>openTab("converter");
 $("worldTimeTab").onclick=()=>openTab("worldTime");
 $("phrasesTab").onclick=()=>openTab("phrases");
 $("guideTab").onclick=()=>openTab("guide");
+if($("itineraryTab")) $("itineraryTab").onclick=()=>openTab("itinerary");
+
+function updateItiCountdown(){
+  const target = new Date("2026-10-01T00:00:00+05:30").getTime();
+  const now = new Date().getTime();
+  const diff = target - now;
+  const el = $("itiCountdown");
+  if(!el) return;
+  if(diff <= 0) {
+    el.textContent = "🎉 Trip is Active!";
+  } else {
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    el.textContent = `⏳ ${days}d ${hours}h until trip begins (Oct 1, 2026)`;
+  }
+}
+
+function makeHorizontalScrollable(el) {
+  if(!el) return;
+  el.addEventListener("wheel", (evt) => {
+    if (evt.deltaY !== 0) {
+      evt.preventDefault();
+      el.scrollLeft += evt.deltaY * 1.3;
+    }
+  }, { passive: false });
+  let isDown = false, startX, scrollLeft;
+  el.addEventListener("mousedown", (e) => {
+    isDown = true;
+    startX = e.pageX - el.offsetLeft;
+    scrollLeft = el.scrollLeft;
+  });
+  el.addEventListener("mouseleave", () => { isDown = false; });
+  el.addEventListener("mouseup", () => { isDown = false; });
+  el.addEventListener("mousemove", (e) => {
+    if(!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - el.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    el.scrollLeft = scrollLeft - walk;
+  });
+}
+
+function initItinerary() {
+  updateItiCountdown();
+  
+  // PC scrollable support for horizontal bars
+  document.querySelectorAll(".tabs, .day-filter-scroll, .cat-filter-scroll, .iti-route, .quick-bills").forEach(makeHorizontalScrollable);
+  
+  // Day filter switching
+  document.querySelectorAll(".day-btn").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll(".day-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const d = btn.getAttribute("data-day");
+      document.querySelectorAll(".day-card").forEach(card => {
+        if(d === "all" || card.getAttribute("data-day-num") === d) {
+          card.classList.remove("hidden");
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+    };
+  });
+  
+  // Category filter switching
+  document.querySelectorAll(".cat-btn").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const c = btn.getAttribute("data-cat");
+      document.querySelectorAll(".timeline-item").forEach(item => {
+        if(c === "all" || item.getAttribute("data-category") === c) {
+          item.style.display = "block";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    };
+  });
+}
+
+
 $("amount").oninput=calculate;$("people").oninput=calculate;
 document.querySelectorAll(".bill-btn").forEach(b=>b.onclick=()=>{
  $("amount").value=b.getAttribute("data-val");calculate();
@@ -578,6 +1414,7 @@ async function fetchWeather() {
   }
 }
 
-renderRate();fetchLive();fetchWeather();updateClocks();setInterval(updateClocks,1000);
+renderRate();fetchLive();fetchWeather();updateClocks();initItinerary();setInterval(updateClocks,1000);
 </script>
+
 </body></html>
